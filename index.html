@@ -1266,7 +1266,6 @@
     <li><a href="#" onclick="showPage('magazine')">Magazine</a></li>
     <li><a href="#" onclick="showPage('showcase')">Showcase</a></li>
     <li><a href="#" onclick="showPage('submit')">Submit</a></li>
-    <li><a href="#" onclick="showPage('cms')" style="color:var(--gold)">CMS</a></li>
   </ul>
   <div class="nav-actions">
     <span style="font-size:0.65rem;letter-spacing:0.1em;color:var(--white-dim);cursor:pointer">EN</span>
@@ -1477,7 +1476,6 @@
         <ul>
           <li><a href="#" onclick="showPage('journal')">Journal</a></li>
           <li><a href="#" onclick="showPage('magazine')">Magazine</a></li>
-          <li><a href="#" onclick="showPage('cms')">CMS Admin</a></li>
           <li><a href="#">Events</a></li>
           <li><a href="#">Contact</a></li>
         </ul>
@@ -1525,7 +1523,7 @@
         <button onclick="toggleUploadForm()" style="position:absolute;top:1.2rem;right:1.2rem;background:transparent;border:1px solid var(--gold-border);color:var(--white-dim);width:32px;height:32px;cursor:pointer;font-size:1rem;transition:all 0.2s" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='var(--gold-border)';this.style.color='var(--white-dim)'">✕</button>
 
         <div class="section-eyebrow" style="margin-bottom:0.5rem">Share Your Work</div>
-        <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;margin-bottom:0.3rem">Upload Your <em>AI Project</em></h3>
+        <h3 id="sc-form-title" style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;margin-bottom:0.3rem">Upload Your <em>AI Project</em></h3>
         <p style="font-size:0.75rem;color:var(--white-dim);margin-bottom:2rem">Your project will appear publicly in the showcase immediately after submission. Open to everyone worldwide.</p>
 
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem">
@@ -1592,14 +1590,28 @@
         <div style="margin-bottom:1.5rem">
           <div style="font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--white-dim);font-weight:500;margin-bottom:0.6rem">Project Icon (used if no image uploaded)</div>
           <div id="sc-emoji-picker" style="display:flex;gap:0.5rem;flex-wrap:wrap">
-            ${['🤖','🧠','💬','👁','⚖','🌍','🩺','🔬','🌱','🤝','🛡','📊','🚀','⚡','🎓'].map(e=>`<button onclick="selectScEmoji('${e}',this)" style="width:40px;height:40px;background:var(--black-4);border:1px solid var(--gold-border);font-size:1.2rem;cursor:pointer;transition:all 0.2s;border-radius:0" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="if(!this.classList.contains('sc-emoji-active'))this.style.borderColor='var(--gold-border)'">${e}</button>`).join('')}
+            <button onclick="selectScEmoji('🤖',this)" style="width:40px;height:40px;background:var(--black-4);border:1px solid var(--gold);font-size:1.2rem;cursor:pointer;border-radius:0" class="sc-emoji-active">🤖</button>
+            <button onclick="selectScEmoji('🧠',this)" style="width:40px;height:40px;background:var(--black-4);border:1px solid var(--gold-border);font-size:1.2rem;cursor:pointer;border-radius:0">🧠</button>
+            <button onclick="selectScEmoji('💬',this)" style="width:40px;height:40px;background:var(--black-4);border:1px solid var(--gold-border);font-size:1.2rem;cursor:pointer;border-radius:0">💬</button>
+            <button onclick="selectScEmoji('👁',this)" style="width:40px;height:40px;background:var(--black-4);border:1px solid var(--gold-border);font-size:1.2rem;cursor:pointer;border-radius:0">👁</button>
+            <button onclick="selectScEmoji('⚖',this)" style="width:40px;height:40px;background:var(--black-4);border:1px solid var(--gold-border);font-size:1.2rem;cursor:pointer;border-radius:0">⚖</button>
+            <button onclick="selectScEmoji('🌍',this)" style="width:40px;height:40px;background:var(--black-4);border:1px solid var(--gold-border);font-size:1.2rem;cursor:pointer;border-radius:0">🌍</button>
+            <button onclick="selectScEmoji('🩺',this)" style="width:40px;height:40px;background:var(--black-4);border:1px solid var(--gold-border);font-size:1.2rem;cursor:pointer;border-radius:0">🩺</button>
+            <button onclick="selectScEmoji('🔬',this)" style="width:40px;height:40px;background:var(--black-4);border:1px solid var(--gold-border);font-size:1.2rem;cursor:pointer;border-radius:0">🔬</button>
+            <button onclick="selectScEmoji('🌱',this)" style="width:40px;height:40px;background:var(--black-4);border:1px solid var(--gold-border);font-size:1.2rem;cursor:pointer;border-radius:0">🌱</button>
+            <button onclick="selectScEmoji('🤝',this)" style="width:40px;height:40px;background:var(--black-4);border:1px solid var(--gold-border);font-size:1.2rem;cursor:pointer;border-radius:0">🤝</button>
+            <button onclick="selectScEmoji('🛡',this)" style="width:40px;height:40px;background:var(--black-4);border:1px solid var(--gold-border);font-size:1.2rem;cursor:pointer;border-radius:0">🛡</button>
+            <button onclick="selectScEmoji('📊',this)" style="width:40px;height:40px;background:var(--black-4);border:1px solid var(--gold-border);font-size:1.2rem;cursor:pointer;border-radius:0">📊</button>
+            <button onclick="selectScEmoji('🚀',this)" style="width:40px;height:40px;background:var(--black-4);border:1px solid var(--gold-border);font-size:1.2rem;cursor:pointer;border-radius:0">🚀</button>
+            <button onclick="selectScEmoji('⚡',this)" style="width:40px;height:40px;background:var(--black-4);border:1px solid var(--gold-border);font-size:1.2rem;cursor:pointer;border-radius:0">⚡</button>
+            <button onclick="selectScEmoji('🎓',this)" style="width:40px;height:40px;background:var(--black-4);border:1px solid var(--gold-border);font-size:1.2rem;cursor:pointer;border-radius:0">🎓</button>
           </div>
         </div>
 
         <div id="sc-error" style="display:none;color:#c83c3c;font-size:0.75rem;margin-bottom:1rem;padding:0.7rem 1rem;background:rgba(200,60,60,0.08);border:1px solid rgba(200,60,60,0.3)"></div>
 
         <div style="display:flex;gap:1rem;align-items:center">
-          <button class="btn-primary" onclick="submitShowcaseProject()"><span>Publish to Showcase</span></button>
+          <button id="sc-submit-btn" class="btn-primary" onclick="submitShowcaseProject()"><span>Publish to Showcase</span></button>
           <button class="btn-secondary" onclick="toggleUploadForm()">Cancel</button>
           <span style="font-size:0.65rem;color:var(--white-dim)">Your project will be visible to the public immediately.</span>
         </div>
@@ -1641,6 +1653,9 @@
       <a href="#" onclick="showPage('home')" style="color:var(--gold);text-decoration:none;font-size:0.65rem">← Back to Home</a>
     </div>
   </footer>
+
+  <!-- Detail overlay — fills screen when a project is opened -->
+  <div id="showcase-detail-overlay" style="display:none;position:fixed;inset:0;background:var(--black);z-index:500;overflow-y:auto;padding-top:72px"></div>
 
 </div><!-- /showcase -->
 
@@ -2811,35 +2826,6 @@ function editCMSItem(type, idx) {
 }
 
 /* ═══════════════════════════════════════════════
-   SHOWCASE FILTER
-═══════════════════════════════════════════════ */
-function filterProjects(tag, btn) {
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('#showcaseGrid .project-card').forEach(card => {
-    card.style.display = (tag === 'all' || (card.dataset.tags || '').includes(tag)) ? '' : 'none';
-  });
-}
-
-/* ═══════════════════════════════════════════════
-   VOTE
-═══════════════════════════════════════════════ */
-function vote(el) {
-  const parts = el.textContent.split(' ');
-  const num = parseInt(parts[1]);
-  if (el.dataset.voted) {
-    el.textContent = '♥ ' + (num - 1);
-    el.style.color = '';
-    delete el.dataset.voted;
-  } else {
-    el.textContent = '♥ ' + (num + 1);
-    el.style.color = 'var(--gold-light)';
-    el.dataset.voted = '1';
-    showToast('Vote recorded — thank you!');
-  }
-}
-
-/* ═══════════════════════════════════════════════
    COMPETITION TABS
 ═══════════════════════════════════════════════ */
 function switchTab(id, btn) {
@@ -3438,112 +3424,347 @@ function renderLMSProgressSidebar() {
    SHOWCASE DATA STORE
 ═══════════════════════════════════════════════ */
 const SHOWCASE_PROJECTS = [
-  { id: 1, title: 'Multilingual Bias Detection Framework', category: 'nlp', tags: 'nlp award', author: 'Dr. Amara Osei', country: 'Ghana', desc: 'An open-source framework identifying and quantifying linguistic bias across 47 languages in large language models using cross-cultural embeddings.', emoji: '🧠', votes: 284, voted: false, badge: '🏆 Winner', url: '', github: '', image: null, ts: Date.now() - 86400000*5 },
-  { id: 2, title: 'RetinaScan AI — Low-Resource Diabetic Screening', category: 'healthcare', tags: 'healthcare', author: 'Team MedAI Lab', country: 'Nigeria', desc: 'A lightweight CNN model for diabetic retinopathy screening designed to run on edge devices in low-bandwidth clinical environments.', emoji: '🩺', votes: 197, voted: false, badge: '', url: '', github: '', image: null, ts: Date.now() - 86400000*4 },
-  { id: 3, title: 'AI Governance Scorecard Platform', category: 'ethics', tags: 'ethics policy award', author: 'PolicyLab EU', country: 'Belgium', desc: 'An interactive platform enabling governments to assess their national AI governance maturity against international standards.', emoji: '⚖', votes: 341, voted: false, badge: 'Featured', url: '', github: '', image: null, ts: Date.now() - 86400000*3 },
-  { id: 4, title: 'SatWatch — Illegal Deforestation Monitor', category: 'vision', tags: 'vision', author: 'EcoAI Brasil', country: 'Brazil', desc: 'Real-time satellite imagery analysis using object detection to identify and alert on illegal deforestation activities in the Amazon basin.', emoji: '👁', votes: 162, voted: false, badge: '', url: '', github: '', image: null, ts: Date.now() - 86400000*2 },
-  { id: 5, title: 'LegalEase — Plain Language AI for Courts', category: 'nlp', tags: 'nlp', author: 'AccessJustice AI', country: 'India', desc: 'A transformer-based system that translates complex legal documents into plain language, improving access to justice for non-specialists.', emoji: '💬', votes: 218, voted: false, badge: '', url: '', github: '', image: null, ts: Date.now() - 86400000 },
-  { id: 6, title: 'AgriBot — Autonomous Crop Disease Detection', category: 'robotics', tags: 'robotics award', author: 'FarmTech Korea', country: 'South Korea', desc: 'A low-cost autonomous agricultural robot using multi-spectral imaging to detect crop diseases 72 hours before visual symptoms appear.', emoji: '🤖', votes: 275, voted: false, badge: '2nd Place', url: '', github: '', image: null, ts: Date.now() - 3600000 },
+  { id: 1, title: 'Multilingual Bias Detection Framework', category: 'nlp', tags: 'nlp award', author: 'Dr. Amara Osei', country: 'Ghana', desc: 'An open-source framework identifying and quantifying linguistic bias across 47 languages in large language models using cross-cultural embeddings.', emoji: '🧠', votes: 284, voted: false, badge: '🏆 Winner', url: '', github: '', image: null, ts: Date.now() - 86400000*5, editKey: null },
+  { id: 2, title: 'RetinaScan AI — Low-Resource Diabetic Screening', category: 'healthcare', tags: 'healthcare', author: 'Team MedAI Lab', country: 'Nigeria', desc: 'A lightweight CNN model for diabetic retinopathy screening designed to run on edge devices in low-bandwidth clinical environments.', emoji: '🩺', votes: 197, voted: false, badge: '', url: '', github: '', image: null, ts: Date.now() - 86400000*4, editKey: null },
+  { id: 3, title: 'AI Governance Scorecard Platform', category: 'ethics', tags: 'ethics policy award', author: 'PolicyLab EU', country: 'Belgium', desc: 'An interactive platform enabling governments to assess their national AI governance maturity against international standards.', emoji: '⚖', votes: 341, voted: false, badge: 'Featured', url: '', github: '', image: null, ts: Date.now() - 86400000*3, editKey: null },
+  { id: 4, title: 'SatWatch — Illegal Deforestation Monitor', category: 'vision', tags: 'vision', author: 'EcoAI Brasil', country: 'Brazil', desc: 'Real-time satellite imagery analysis using object detection to identify and alert on illegal deforestation activities in the Amazon basin.', emoji: '👁', votes: 162, voted: false, badge: '', url: '', github: '', image: null, ts: Date.now() - 86400000*2, editKey: null },
+  { id: 5, title: 'LegalEase — Plain Language AI for Courts', category: 'nlp', tags: 'nlp', author: 'AccessJustice AI', country: 'India', desc: 'A transformer-based system that translates complex legal documents into plain language, improving access to justice for non-specialists.', emoji: '💬', votes: 218, voted: false, badge: '', url: '', github: '', image: null, ts: Date.now() - 86400000, editKey: null },
+  { id: 6, title: 'AgriBot — Autonomous Crop Disease Detection', category: 'robotics', tags: 'robotics award', author: 'FarmTech Korea', country: 'South Korea', desc: 'A low-cost autonomous agricultural robot using multi-spectral imaging to detect crop diseases 72 hours before visual symptoms appear.', emoji: '🤖', votes: 275, voted: false, badge: '2nd Place', url: '', github: '', image: null, ts: Date.now() - 3600000, editKey: null },
 ];
 let _scNextId = 7;
 let _scFilter = 'all';
 let _scSelectedEmoji = '🤖';
 let _scUploadOpen = false;
 let _scImageData = null;
+let _scEditingId = null;     // which project is being edited
+let _scViewingId = null;     // which project detail is open
 
-/* ── Toggle upload form ── */
-function toggleUploadForm() {
-  _scUploadOpen = !_scUploadOpen;
+/* ── generate a simple edit key for the submitter ── */
+function generateEditKey() {
+  return Math.random().toString(36).slice(2,10).toUpperCase();
+}
+
+/* ── get shareable hash URL for a project ── */
+function projectURL(id) {
+  return window.location.href.split('#')[0] + '#project-' + id;
+}
+
+/* ── Toggle upload / edit form ── */
+function toggleUploadForm(editId) {
+  _scEditingId = editId || null;
+  _scUploadOpen = !_scUploadOpen || editId !== undefined;
+
   const panel = document.getElementById('showcase-upload-panel');
   const btnLabel = document.getElementById('upload-btn-label');
   if (!panel) return;
-  panel.style.display = _scUploadOpen ? 'block' : 'none';
-  if (btnLabel) btnLabel.textContent = _scUploadOpen ? '✕ Cancel Upload' : '+ Upload Your Project';
-  if (_scUploadOpen) panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  if (_scUploadOpen) {
+    panel.style.display = 'block';
+    panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (btnLabel) btnLabel.textContent = '✕ Cancel';
+
+    // pre-fill form if editing
+    if (_scEditingId !== null) {
+      const p = SHOWCASE_PROJECTS.find(x => x.id === _scEditingId);
+      if (p) {
+        setValue('sc-title', p.title);
+        setValue('sc-category', p.category);
+        setValue('sc-author', p.author);
+        setValue('sc-country', p.country);
+        setValue('sc-desc', p.desc);
+        setValue('sc-url', p.url || '');
+        setValue('sc-github', p.github || '');
+        _scSelectedEmoji = p.emoji;
+        _scImageData = p.image || null;
+        // highlight emoji
+        document.querySelectorAll('#sc-emoji-picker button').forEach(b => {
+          const active = b.textContent.trim() === p.emoji;
+          b.style.borderColor = active ? 'var(--gold)' : 'var(--gold-border)';
+          b.style.background = active ? 'rgba(201,168,76,0.12)' : 'var(--black-4)';
+        });
+        // update form title
+        const formTitle = document.getElementById('sc-form-title');
+        if (formTitle) formTitle.textContent = 'Edit Your Project';
+        const submitBtn = document.getElementById('sc-submit-btn');
+        if (submitBtn) submitBtn.textContent = 'Save Changes';
+      }
+    } else {
+      // reset for new submission
+      ['sc-title','sc-author','sc-country','sc-desc','sc-url','sc-github'].forEach(id => setValue(id,''));
+      setValue('sc-category','');
+      _scImageData = null; _scSelectedEmoji = '🤖';
+      resetEmojiPicker();
+      const formTitle = document.getElementById('sc-form-title');
+      if (formTitle) formTitle.textContent = 'Upload Your AI Project';
+      const submitBtn = document.getElementById('sc-submit-btn');
+      if (submitBtn) submitBtn.textContent = 'Publish to Showcase';
+      resetDropZone();
+    }
+  } else {
+    panel.style.display = 'none';
+    if (btnLabel) btnLabel.textContent = '+ Upload Your Project';
+    _scEditingId = null;
+  }
+}
+
+function setValue(id, val) {
+  const el = document.getElementById(id);
+  if (el) el.value = val;
+}
+
+function resetEmojiPicker() {
+  document.querySelectorAll('#sc-emoji-picker button').forEach((b,i) => {
+    b.style.borderColor = i === 0 ? 'var(--gold)' : 'var(--gold-border)';
+    b.style.background = i === 0 ? 'rgba(201,168,76,0.12)' : 'var(--black-4)';
+  });
+  _scSelectedEmoji = '🤖';
+}
+
+function resetDropZone() {
+  const preview = document.getElementById('sc-drop-preview');
+  if (preview) preview.innerHTML = `<div style="font-size:2rem;color:var(--gold)">↑</div><div class="upload-text">Click or drag &amp; drop an image here</div><div class="upload-hint">PNG, JPG, GIF · Max 5MB · Optional</div>`;
 }
 
 /* ── Emoji picker ── */
 function selectScEmoji(emoji, btn) {
   _scSelectedEmoji = emoji;
   document.querySelectorAll('#sc-emoji-picker button').forEach(b => {
-    b.classList.remove('sc-emoji-active');
     b.style.borderColor = 'var(--gold-border)';
     b.style.background = 'var(--black-4)';
   });
-  btn.classList.add('sc-emoji-active');
-  btn.style.borderColor = 'var(--gold)';
-  btn.style.background = 'rgba(201,168,76,0.12)';
+  if (btn) { btn.style.borderColor = 'var(--gold)'; btn.style.background = 'rgba(201,168,76,0.12)'; }
 }
 
 /* ── File handling ── */
-function handleScFileSelect(input) {
-  const file = input.files[0];
-  if (file) processScFile(file);
-}
+function handleScFileSelect(input) { if (input.files[0]) processScFile(input.files[0]); }
 function handleScFileDrop(e) {
   e.preventDefault();
   document.getElementById('sc-drop-zone').style.borderColor = 'var(--gold-border)';
   const file = e.dataTransfer.files[0];
   if (file && file.type.startsWith('image/')) processScFile(file);
-  else showToast('Please drop an image file (PNG, JPG, GIF).');
+  else showToast('Please drop an image file.');
 }
 function processScFile(file) {
-  if (file.size > 5 * 1024 * 1024) { showToast('File too large — max 5MB.'); return; }
+  if (file.size > 5*1024*1024) { showToast('File too large — max 5MB.'); return; }
   const reader = new FileReader();
-  reader.onload = (e) => {
+  reader.onload = e => {
     _scImageData = e.target.result;
     const preview = document.getElementById('sc-drop-preview');
-    if (preview) {
-      preview.innerHTML = `<img src="${_scImageData}" style="max-height:100px;max-width:200px;object-fit:cover;border:1px solid var(--gold-border)"><div style="font-size:0.65rem;color:var(--gold);margin-top:0.4rem">✓ Image ready — click to change</div>`;
-    }
+    if (preview) preview.innerHTML = `<img src="${_scImageData}" style="max-height:90px;max-width:180px;object-fit:cover;border:1px solid var(--gold-border)"><div style="font-size:0.65rem;color:var(--gold);margin-top:0.4rem">✓ Image ready — click to change</div>`;
   };
   reader.readAsDataURL(file);
 }
 
-/* ── Submit showcase project ── */
+/* ── Submit / Save project ── */
 function submitShowcaseProject() {
-  const title = document.getElementById('sc-title')?.value.trim();
+  const title    = document.getElementById('sc-title')?.value.trim();
   const category = document.getElementById('sc-category')?.value;
-  const author = document.getElementById('sc-author')?.value.trim();
-  const country = document.getElementById('sc-country')?.value.trim();
-  const desc = document.getElementById('sc-desc')?.value.trim();
-  const url = document.getElementById('sc-url')?.value.trim();
-  const github = document.getElementById('sc-github')?.value.trim();
-  const errEl = document.getElementById('sc-error');
+  const author   = document.getElementById('sc-author')?.value.trim();
+  const country  = document.getElementById('sc-country')?.value.trim();
+  const desc     = document.getElementById('sc-desc')?.value.trim();
+  const url      = document.getElementById('sc-url')?.value.trim();
+  const github   = document.getElementById('sc-github')?.value.trim();
+  const errEl    = document.getElementById('sc-error');
 
   if (!title || !category || !author || !desc) {
-    if (errEl) { errEl.style.display = 'block'; errEl.textContent = 'Please fill in Title, Category, Your Name, and Description.'; }
+    if (errEl) { errEl.style.display='block'; errEl.textContent='Please fill in Title, Category, Your Name, and Description.'; }
     return;
   }
   if (errEl) errEl.style.display = 'none';
 
-  SHOWCASE_PROJECTS.unshift({
-    id: _scNextId++, title, category, tags: category,
-    author, country, desc, emoji: _scSelectedEmoji,
-    votes: 0, voted: false, badge: 'New',
-    url, github, image: _scImageData, ts: Date.now()
-  });
+  if (_scEditingId !== null) {
+    // UPDATE existing
+    const p = SHOWCASE_PROJECTS.find(x => x.id === _scEditingId);
+    if (p) {
+      p.title = title; p.category = category; p.tags = category;
+      p.author = author; p.country = country; p.desc = desc;
+      p.url = url; p.github = github; p.emoji = _scSelectedEmoji;
+      if (_scImageData) p.image = _scImageData;
+    }
+    showToast('✓ Project updated successfully!');
+  } else {
+    // NEW submission
+    const editKey = generateEditKey();
+    const newProject = {
+      id: _scNextId++, title, category, tags: category,
+      author, country, desc, emoji: _scSelectedEmoji,
+      votes: 0, voted: false, badge: 'New',
+      url, github, image: _scImageData, ts: Date.now(),
+      editKey
+    };
+    SHOWCASE_PROJECTS.unshift(newProject);
 
-  // Reset form
-  ['sc-title','sc-author','sc-country','sc-desc','sc-url','sc-github'].forEach(id => {
-    const el = document.getElementById(id); if (el) el.value = '';
-  });
-  const catEl = document.getElementById('sc-category'); if (catEl) catEl.value = '';
-  _scImageData = null;
-  _scSelectedEmoji = '🤖';
-  const preview = document.getElementById('sc-drop-preview');
-  if (preview) preview.innerHTML = `<div style="font-size:2rem;color:var(--gold)">↑</div><div class="upload-text">Click or drag & drop an image here</div><div class="upload-hint">PNG, JPG, GIF · Max 5MB · Optional but recommended</div>`;
-  document.querySelectorAll('#sc-emoji-picker button').forEach(b => { b.classList.remove('sc-emoji-active'); b.style.borderColor='var(--gold-border)'; b.style.background='var(--black-4)'; });
+    // Show personal space modal with edit key + share URL
+    showPersonalSpaceModal(newProject);
+  }
 
-  toggleUploadForm();
+  // reset
+  ['sc-title','sc-author','sc-country','sc-desc','sc-url','sc-github'].forEach(id => setValue(id,''));
+  setValue('sc-category','');
+  _scImageData = null; _scUploadOpen = false; _scEditingId = null;
+  resetEmojiPicker(); resetDropZone();
+  document.getElementById('showcase-upload-panel').style.display = 'none';
+  const btnLabel = document.getElementById('upload-btn-label');
+  if (btnLabel) btnLabel.textContent = '+ Upload Your Project';
+
   renderShowcaseGrid();
-  showToast('🎉 Your project is now live in the showcase!');
+  setTimeout(() => document.getElementById('showcaseGrid')?.scrollIntoView({ behavior:'smooth', block:'start' }), 300);
+}
 
-  // scroll to new card
-  setTimeout(() => {
-    const grid = document.getElementById('showcaseGrid');
-    if (grid) grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, 300);
+/* ── Personal space modal shown after submission ── */
+function showPersonalSpaceModal(p) {
+  const shareURL = projectURL(p.id);
+  const existing = document.getElementById('sc-personal-modal');
+  if (existing) existing.remove();
+
+  const modal = document.createElement('div');
+  modal.id = 'sc-personal-modal';
+  modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:9998;display:flex;align-items:center;justify-content:center;padding:2rem';
+  modal.innerHTML = `
+    <div style="background:var(--black-3);border:1px solid var(--gold);padding:2.5rem;max-width:560px;width:100%;position:relative">
+      <div style="text-align:center;font-size:3rem;margin-bottom:1rem">🎉</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;text-align:center;margin-bottom:0.3rem">Project <em>Live!</em></div>
+      <p style="font-size:0.78rem;color:var(--white-dim);text-align:center;margin-bottom:2rem">"${p.title}" is now publicly visible in the showcase.</p>
+
+      <div style="background:var(--black-4);border:1px solid var(--gold-border);padding:1.2rem;margin-bottom:1.5rem">
+        <div style="font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:0.6rem">🔗 Your Shareable Project URL</div>
+        <div style="display:flex;gap:0.5rem;align-items:center">
+          <input id="sc-share-url" value="${shareURL}" readonly style="flex:1;background:var(--black-3);border:1px solid var(--gold-border);color:var(--white);font-size:0.7rem;padding:0.5rem 0.8rem;font-family:'Montserrat',sans-serif;outline:none">
+          <button onclick="copyShareURL()" style="background:var(--gold);border:none;color:var(--black);font-size:0.65rem;font-weight:700;padding:0.5rem 1rem;cursor:pointer;font-family:'Montserrat',sans-serif;letter-spacing:0.1em;white-space:nowrap">COPY</button>
+        </div>
+        <div style="font-size:0.63rem;color:var(--white-dim);margin-top:0.5rem">Share this link — anyone can view your project directly.</div>
+      </div>
+
+      <div style="background:rgba(201,168,76,0.06);border:1px solid var(--gold-border);padding:1.2rem;margin-bottom:1.5rem">
+        <div style="font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:0.6rem">🔑 Your Personal Edit Key</div>
+        <div style="display:flex;gap:0.5rem;align-items:center">
+          <div style="flex:1;background:var(--black-3);border:1px solid var(--gold);color:var(--gold);font-size:1rem;font-weight:700;padding:0.6rem 0.8rem;letter-spacing:0.3em;font-family:'Cinzel',serif;text-align:center">${p.editKey}</div>
+          <button onclick="copyEditKey('${p.editKey}')" style="background:transparent;border:1px solid var(--gold-border);color:var(--white-dim);font-size:0.65rem;padding:0.5rem 1rem;cursor:pointer;font-family:'Montserrat',sans-serif;transition:all 0.2s" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--gold-border)'">COPY</button>
+        </div>
+        <div style="font-size:0.63rem;color:rgba(200,60,60,0.9);margin-top:0.5rem;font-weight:500">⚠ Save this key — you will need it to edit or delete your project later.</div>
+      </div>
+
+      <div style="display:flex;gap:1rem">
+        <button class="btn-primary" onclick="document.getElementById('sc-personal-modal').remove();openProjectDetail(${p.id})"><span>View My Project →</span></button>
+        <button class="btn-secondary" onclick="document.getElementById('sc-personal-modal').remove()">Close</button>
+      </div>
+    </div>`;
+  document.body.appendChild(modal);
+}
+
+function copyShareURL() {
+  const el = document.getElementById('sc-share-url');
+  if (el) { el.select(); document.execCommand('copy'); showToast('Share URL copied!'); }
+}
+function copyEditKey(key) {
+  navigator.clipboard?.writeText(key).catch(()=>{});
+  showToast('Edit key copied: ' + key);
+}
+
+/* ── Project detail view (individual page) ── */
+function openProjectDetail(id) {
+  _scViewingId = id;
+  window.location.hash = 'project-' + id;
+  renderProjectDetail();
+}
+
+function renderProjectDetail() {
+  const id = _scViewingId;
+  const p = SHOWCASE_PROJECTS.find(x => x.id === id);
+  const main = document.getElementById('showcase-detail-overlay');
+  if (!main || !p) return;
+
+  const shareURL = projectURL(p.id);
+  const grad = { nlp:'135deg,#1a1400,#2d2300', vision:'135deg,#001219,#003049', ethics:'135deg,#0a001a,#150030', healthcare:'135deg,#001a0f,#002d1a', robotics:'135deg,#190005,#2d000a' };
+  const bg = grad[p.category] || '135deg,#141414,#1a1a1a';
+
+  main.style.display = 'block';
+  main.innerHTML = `
+    <div style="min-height:100vh;background:var(--black);padding:6rem 3rem 4rem">
+      <button onclick="closeProjectDetail()" style="background:transparent;border:none;color:var(--gold);font-size:0.72rem;cursor:pointer;margin-bottom:2rem;display:flex;align-items:center;gap:0.5rem;font-family:'Montserrat',sans-serif;padding:0">← Back to Showcase</button>
+      <div style="display:grid;grid-template-columns:1fr 320px;gap:3rem;max-width:1200px;align-items:start">
+        <div>
+          <div style="height:300px;background:linear-gradient(${bg});display:flex;align-items:center;justify-content:center;font-size:6rem;margin-bottom:2rem;position:relative;overflow:hidden">
+            ${p.image ? `<img src="${p.image}" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0">` : `<span style="position:relative;z-index:1">${p.emoji}</span>`}
+            ${p.badge ? `<div style="position:absolute;top:1rem;left:1rem;background:var(--gold);color:var(--black);font-size:0.65rem;font-weight:700;padding:0.3rem 0.8rem">${p.badge}</div>` : ''}
+          </div>
+          <div style="font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem">${p.category.toUpperCase()}</div>
+          <h1 style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,4vw,3rem);font-weight:300;margin-bottom:1rem;line-height:1.2">${p.title}</h1>
+          <div style="font-size:0.8rem;color:var(--white-dim);margin-bottom:1rem">By <strong style="color:var(--white)">${p.author}</strong>${p.country?' · '+p.country:''}</div>
+          <div style="font-size:0.85rem;color:var(--white-dim);line-height:2;margin-bottom:2rem;padding:1.5rem;background:var(--black-3);border-left:3px solid var(--gold)">${p.desc}</div>
+          ${(p.url||p.github) ? `<div style="display:flex;gap:1rem;margin-bottom:2rem">
+            ${p.url?`<a href="${p.url}" target="_blank" class="btn-primary"><span>View Demo ↗</span></a>`:''}
+            ${p.github?`<a href="${p.github}" target="_blank" class="btn-secondary">GitHub ↗</a>`:''}
+          </div>` : ''}
+        </div>
+        <div style="position:sticky;top:100px">
+          <div style="background:var(--black-3);border:1px solid var(--gold-border);padding:1.8rem;margin-bottom:1.5rem">
+            <div style="font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem">Project Info</div>
+            ${[['Submitted by',p.author],['Country',p.country||'—'],['Category',p.category.toUpperCase()],['Submitted',formatTimeAgo(p.ts)]].map(([k,v])=>`
+            <div style="display:flex;justify-content:space-between;padding:0.6rem 0;border-bottom:1px solid var(--gold-border)">
+              <span style="font-size:0.65rem;color:var(--white-dim)">${k}</span>
+              <span style="font-size:0.7rem;font-weight:500">${v}</span>
+            </div>`).join('')}
+            <div style="margin-top:1.2rem;display:flex;align-items:center;justify-content:space-between">
+              <span style="font-size:0.72rem;color:var(--white-dim)">Community votes</span>
+              <span style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:var(--gold)">${p.votes}</span>
+            </div>
+            <button onclick="voteProject(${p.id},this);document.querySelector('.detail-vote-count').textContent=SHOWCASE_PROJECTS.find(x=>x.id==${p.id}).votes" style="width:100%;margin-top:0.8rem;background:${p.voted?'var(--gold)':'transparent'};border:1px solid var(--gold);color:${p.voted?'var(--black)':'var(--gold)'};font-family:'Montserrat',sans-serif;font-size:0.7rem;font-weight:700;padding:0.6rem;cursor:pointer;letter-spacing:0.1em;transition:all 0.2s">
+              ${p.voted?'♥ Voted':'♥ Vote for this project'}
+            </button>
+          </div>
+
+          <div style="background:var(--black-3);border:1px solid var(--gold-border);padding:1.8rem;margin-bottom:1.5rem">
+            <div style="font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem">🔗 Share This Project</div>
+            <div style="display:flex;gap:0.5rem">
+              <input value="${shareURL}" readonly style="flex:1;background:var(--black-4);border:1px solid var(--gold-border);color:var(--white-dim);font-size:0.62rem;padding:0.4rem 0.6rem;font-family:'Montserrat',sans-serif;outline:none">
+              <button onclick="navigator.clipboard?.writeText('${shareURL}');showToast('Link copied!')" style="background:var(--gold);border:none;color:var(--black);font-size:0.6rem;font-weight:700;padding:0.4rem 0.8rem;cursor:pointer;font-family:'Montserrat',sans-serif;white-space:nowrap">COPY</button>
+            </div>
+          </div>
+
+          <div style="background:var(--black-3);border:1px solid var(--gold-border);padding:1.8rem">
+            <div style="font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem">🔑 Edit Your Project</div>
+            <p style="font-size:0.7rem;color:var(--white-dim);margin-bottom:1rem;line-height:1.6">Enter your edit key to modify or delete this project.</p>
+            <input type="text" id="detail-edit-key" placeholder="Your 8-character key" style="width:100%;background:var(--black-4);border:1px solid var(--gold-border);color:var(--white);font-family:'Cinzel',sans-serif;font-size:0.85rem;padding:0.6rem 0.8rem;letter-spacing:0.2em;outline:none;text-transform:uppercase;margin-bottom:0.8rem">
+            <div style="display:flex;gap:0.5rem">
+              <button onclick="verifyAndEdit(${p.id})" style="flex:1;background:transparent;border:1px solid var(--gold);color:var(--gold);font-family:'Montserrat',sans-serif;font-size:0.65rem;font-weight:700;padding:0.5rem;cursor:pointer;letter-spacing:0.1em;transition:all 0.2s" onmouseover="this.style.background='var(--gold)';this.style.color='var(--black)'" onmouseout="this.style.background='transparent';this.style.color='var(--gold)'">EDIT</button>
+              <button onclick="verifyAndDelete(${p.id})" style="flex:1;background:transparent;border:1px solid rgba(200,60,60,0.5);color:rgba(200,60,60,0.8);font-family:'Montserrat',sans-serif;font-size:0.65rem;font-weight:700;padding:0.5rem;cursor:pointer;letter-spacing:0.1em;transition:all 0.2s" onmouseover="this.style.background='rgba(200,60,60,0.1)'" onmouseout="this.style.background='transparent'">DELETE</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>`;
+}
+
+function closeProjectDetail() {
+  _scViewingId = null;
+  window.location.hash = '';
+  const overlay = document.getElementById('showcase-detail-overlay');
+  if (overlay) overlay.style.display = 'none';
+}
+
+function verifyAndEdit(id) {
+  const key = document.getElementById('detail-edit-key')?.value.trim().toUpperCase();
+  const p = SHOWCASE_PROJECTS.find(x => x.id === id);
+  if (!p) return;
+  if (!p.editKey) { showToast('This is a demo project — editing not available.'); return; }
+  if (key !== p.editKey) { showToast('❌ Incorrect edit key. Please try again.'); return; }
+  closeProjectDetail();
+  showPage('showcase');
+  setTimeout(() => toggleUploadForm(id), 200);
+}
+
+function verifyAndDelete(id) {
+  const key = document.getElementById('detail-edit-key')?.value.trim().toUpperCase();
+  const p = SHOWCASE_PROJECTS.find(x => x.id === id);
+  if (!p) return;
+  if (!p.editKey) { showToast('This is a demo project — deletion not available.'); return; }
+  if (key !== p.editKey) { showToast('❌ Incorrect edit key. Please try again.'); return; }
+  const idx = SHOWCASE_PROJECTS.findIndex(x => x.id === id);
+  if (idx > -1) SHOWCASE_PROJECTS.splice(idx, 1);
+  closeProjectDetail();
+  showToast('Project deleted successfully.');
+  renderShowcaseGrid();
 }
 
 /* ── Render grid ── */
@@ -3553,50 +3774,46 @@ function renderShowcaseGrid() {
   if (!grid) return;
 
   const sort = document.getElementById('sc-sort')?.value || 'newest';
-  let projects = _scFilter === 'all'
-    ? [...SHOWCASE_PROJECTS]
-    : SHOWCASE_PROJECTS.filter(p => p.tags.includes(_scFilter));
-
+  let projects = _scFilter === 'all' ? [...SHOWCASE_PROJECTS] : SHOWCASE_PROJECTS.filter(p => p.tags.includes(_scFilter));
   if (sort === 'votes') projects.sort((a,b) => b.votes - a.votes);
   else projects.sort((a,b) => b.ts - a.ts);
 
-  if (countEl) countEl.textContent = `${projects.length} project${projects.length !== 1 ? 's' : ''}`;
+  if (countEl) countEl.textContent = projects.length + ' project' + (projects.length !== 1 ? 's' : '');
 
   if (!projects.length) {
     grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:4rem;color:var(--white-dim)">
       <div style="font-size:3rem;margin-bottom:1rem">🔍</div>
       <div style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;margin-bottom:0.5rem">No projects in this category yet</div>
-      <div style="font-size:0.78rem;margin-bottom:1.5rem">Be the first to upload one!</div>
-      <button class="btn-primary" onclick="toggleUploadForm()"><span>+ Upload Your Project</span></button>
+      <button class="btn-primary" style="margin-top:1rem" onclick="toggleUploadForm()"><span>+ Upload Your Project</span></button>
     </div>`;
     return;
   }
 
+  const grads = { nlp:'135deg,#1a1400,#2d2300', vision:'135deg,#001219,#003049', ethics:'135deg,#0a001a,#150030', healthcare:'135deg,#001a0f,#002d1a', policy:'135deg,#0a0a1a,#15152d', robotics:'135deg,#190005,#2d000a', climate:'135deg,#001a0a,#002d15', education:'135deg,#1a1a00,#2d2d00', finance:'135deg,#1a0a00,#2d1500', other:'135deg,#141414,#1a1a1a' };
+
   grid.innerHTML = projects.map(p => {
-    const thumb = p.image
-      ? `<img src="${p.image}" style="width:100%;height:100%;object-fit:cover;transition:transform 0.4s" class="sc-img">`
-      : `<div style="font-size:4rem;position:relative;z-index:1">${p.emoji}</div>`;
-    const gradients = { nlp:'135deg,#1a1400,#2d2300', vision:'135deg,#001219,#003049', ethics:'135deg,#0a001a,#150030', healthcare:'135deg,#001a0f,#002d1a', policy:'135deg,#0a0a1a,#15152d', robotics:'135deg,#190005,#2d000a', climate:'135deg,#001a0a,#002d15', education:'135deg,#1a1a00,#2d2d00', finance:'135deg,#1a0a00,#2d1500', other:'135deg,#141414,#1a1a1a' };
-    const grad = gradients[p.category] || gradients.other;
-    const timeAgo = formatTimeAgo(p.ts);
-    return `<div class="project-card" style="opacity:1;transform:none" onmouseover="this.style.borderColor='var(--gold)';this.style.transform='translateY(-4px)';this.style.boxShadow='0 20px 60px rgba(201,168,76,0.15)'" onmouseout="this.style.borderColor='var(--gold-border)';this.style.transform='';this.style.boxShadow=''">
-      <div class="project-thumb" style="background:linear-gradient(${grad})" onmouseover="this.querySelector('.sc-img')&&(this.querySelector('.sc-img').style.transform='scale(1.05)')" onmouseout="this.querySelector('.sc-img')&&(this.querySelector('.sc-img').style.transform='')">
-        ${!p.image ? `<div class="project-thumb-bg" style="background:linear-gradient(135deg,rgba(201,168,76,0.1),transparent)"></div>` : ''}
-        ${thumb}
+    const bg = grads[p.category] || grads.other;
+    return `<div class="project-card" style="opacity:1;transform:none;cursor:pointer"
+         onclick="openProjectDetail(${p.id})"
+         onmouseover="this.style.borderColor='var(--gold)';this.style.transform='translateY(-4px)';this.style.boxShadow='0 20px 60px rgba(201,168,76,0.15)'"
+         onmouseout="this.style.borderColor='var(--gold-border)';this.style.transform='';this.style.boxShadow=''">
+      <div class="project-thumb" style="background:linear-gradient(${bg})">
+        ${!p.image ? '<div class="project-thumb-bg" style="background:linear-gradient(135deg,rgba(201,168,76,0.1),transparent)"></div>' : ''}
+        ${p.image ? `<img src="${p.image}" style="width:100%;height:100%;object-fit:cover;transition:transform 0.4s">` : `<div class="project-thumb-icon">${p.emoji}</div>`}
       </div>
       ${p.badge ? `<div class="project-badge">${p.badge}</div>` : ''}
       <div class="project-body">
-        <div class="project-category">${p.category.toUpperCase()} · ${timeAgo}</div>
+        <div class="project-category">${p.category.toUpperCase()} · ${formatTimeAgo(p.ts)}</div>
         <div class="project-title">${p.title}</div>
         <div class="project-desc">${p.desc}</div>
         <div class="project-meta">
-          <div class="project-author">By <strong>${p.author}</strong>${p.country ? ' · ' + p.country : ''}</div>
-          <div class="project-votes" onclick="voteProject(${p.id},this)" style="${p.voted?'color:var(--gold-light)':''}">♥ ${p.votes}</div>
+          <div class="project-author">By <strong>${p.author}</strong>${p.country?' · '+p.country:''}</div>
+          <div class="project-votes" onclick="event.stopPropagation();voteProject(${p.id},this)" style="${p.voted?'color:var(--gold-light)':''}">♥ ${p.votes}</div>
         </div>
-        ${(p.url || p.github) ? `<div style="display:flex;gap:0.5rem;margin-top:0.8rem;padding-top:0.8rem;border-top:1px solid var(--gold-border)">
-          ${p.url ? `<a href="${p.url}" target="_blank" style="font-size:0.62rem;color:var(--gold);text-decoration:none;border:1px solid var(--gold-border);padding:0.25rem 0.6rem;transition:all 0.2s" onmouseover="this.style.background='var(--gold)';this.style.color='var(--black)'" onmouseout="this.style.background='';this.style.color='var(--gold)'">Demo ↗</a>` : ''}
-          ${p.github ? `<a href="${p.github}" target="_blank" style="font-size:0.62rem;color:var(--white-dim);text-decoration:none;border:1px solid var(--gold-border);padding:0.25rem 0.6rem;transition:all 0.2s" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--white)'" onmouseout="this.style.borderColor='var(--gold-border)';this.style.color='var(--white-dim)'">GitHub ↗</a>` : ''}
-        </div>` : ''}
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.8rem;padding-top:0.8rem;border-top:1px solid var(--gold-border)">
+          <span style="font-size:0.62rem;color:var(--gold)">View &amp; Share →</span>
+          ${p.editKey?`<span style="font-size:0.58rem;color:rgba(201,168,76,0.4)">Your project</span>`:''}
+        </div>
       </div>
     </div>`;
   }).join('');
@@ -3605,17 +3822,18 @@ function renderShowcaseGrid() {
 function voteProject(id, el) {
   const p = SHOWCASE_PROJECTS.find(x => x.id === id);
   if (!p) return;
-  if (p.voted) { p.votes--; p.voted = false; }
-  else { p.votes++; p.voted = true; showToast('Vote recorded — thank you!'); }
-  el.textContent = `♥ ${p.votes}`;
+  p.voted = !p.voted;
+  p.votes += p.voted ? 1 : -1;
+  el.textContent = '♥ ' + p.votes;
   el.style.color = p.voted ? 'var(--gold-light)' : '';
+  if (p.voted) showToast('Vote recorded — thank you!');
 }
 
 function formatTimeAgo(ts) {
   const diff = Date.now() - ts;
-  if (diff < 3600000) return Math.max(1, Math.floor(diff/60000)) + 'm ago';
-  if (diff < 86400000) return Math.floor(diff/3600000) + 'h ago';
-  return Math.floor(diff/86400000) + 'd ago';
+  if (diff < 3600000) return Math.max(1,Math.floor(diff/60000))+'m ago';
+  if (diff < 86400000) return Math.floor(diff/3600000)+'h ago';
+  return Math.floor(diff/86400000)+'d ago';
 }
 
 function filterProjects(tag, btn) {
@@ -3625,79 +3843,80 @@ function filterProjects(tag, btn) {
   renderShowcaseGrid();
 }
 
+/* ── Check hash on load for direct project links ── */
+function checkProjectHash() {
+  const hash = window.location.hash;
+  if (hash.startsWith('#project-')) {
+    const id = parseInt(hash.replace('#project-',''));
+    if (!isNaN(id)) {
+      showPage('showcase');
+      _scViewingId = id;
+      setTimeout(() => renderProjectDetail(), 100);
+    }
+  }
+}
+
 /* ═══════════════════════════════════════════════
    NEWS TICKER
 ═══════════════════════════════════════════════ */
 const TICKER_ITEMS = [
-  { label: 'AI', text: 'OpenAI releases new reasoning model with enhanced multi-step problem solving capabilities' },
-  { label: 'POLICY', text: 'EU AI Act enforcement begins — high-risk AI systems must comply with new transparency requirements' },
-  { label: 'RESEARCH', text: 'DeepMind publishes breakthrough in protein structure prediction using diffusion models' },
-  { label: 'SAFETY', text: 'Anthropic releases new interpretability research identifying millions of features in Claude 3' },
-  { label: 'INDUSTRY', text: 'Global AI investment reaches record levels as enterprise adoption accelerates across sectors' },
+  { label: 'AI',         text: 'OpenAI releases new reasoning model with enhanced multi-step problem solving capabilities' },
+  { label: 'POLICY',     text: 'EU AI Act enforcement begins — high-risk AI systems must comply with new transparency requirements' },
+  { label: 'RESEARCH',   text: 'DeepMind publishes breakthrough in protein structure prediction using diffusion models' },
+  { label: 'SAFETY',     text: 'Anthropic releases new interpretability research identifying millions of features in Claude 3' },
+  { label: 'INDUSTRY',   text: 'Global AI investment reaches record levels as enterprise adoption accelerates across sectors' },
   { label: 'GOVERNANCE', text: 'UN Advisory Body on AI releases framework for international cooperation on AI governance' },
-  { label: 'RESEARCH', text: 'New study reveals large language models demonstrate emergent capabilities at scale thresholds' },
-  { label: 'TECH', text: 'NVIDIA announces next-generation AI accelerator chip with 3x performance improvements' },
-  { label: 'ETHICS', text: 'Stanford HAI report highlights growing algorithmic bias in hiring and lending decisions globally' },
-  { label: 'POLICY', text: 'G7 nations agree on shared principles for responsible military use of artificial intelligence' },
-  { label: 'AI', text: 'Google DeepMind AlphaFold 3 expands predictions to DNA, RNA, and small molecules' },
-  { label: 'SAFETY', text: 'METR publishes new evaluation framework for measuring AI autonomous capabilities' },
-  { label: 'INDUSTRY', text: 'AI-powered drug discovery accelerates clinical trials with novel molecule identification' },
-  { label: 'TECH', text: 'Open-source LLMs close performance gap with frontier models on key benchmarks' },
+  { label: 'RESEARCH',   text: 'New study reveals large language models demonstrate emergent capabilities at scale thresholds' },
+  { label: 'TECH',       text: 'NVIDIA announces next-generation AI accelerator chip with 3x performance improvements' },
+  { label: 'ETHICS',     text: 'Stanford HAI report highlights growing algorithmic bias in hiring and lending decisions globally' },
+  { label: 'POLICY',     text: 'G7 nations agree on shared principles for responsible military use of artificial intelligence' },
+  { label: 'AI',         text: 'Google DeepMind AlphaFold 3 expands predictions to DNA, RNA, and small molecules' },
+  { label: 'SAFETY',     text: 'METR publishes new evaluation framework for measuring AI autonomous capabilities' },
+  { label: 'INDUSTRY',   text: 'AI-powered drug discovery accelerates clinical trials with novel molecule identification' },
+  { label: 'TECH',       text: 'Open-source LLMs close performance gap with frontier models on key benchmarks' },
   { label: 'GOVERNANCE', text: 'UK AI Safety Institute expands to Singapore and Japan with bilateral safety agreements' },
-  { label: 'RESEARCH', text: 'Mechanistic interpretability reveals circuits responsible for in-context learning in transformers' },
-  { label: 'IA²P', text: 'IA²P opens registration for the Global AI Ethics Challenge 2026 — submissions close Aug 15' },
-  { label: 'IA²P', text: 'New LMS courses now available: AI Safety & Alignment, Advanced AI Governance and more' },
+  { label: 'RESEARCH',   text: 'Mechanistic interpretability reveals circuits responsible for in-context learning in transformers' },
+  { label: 'IA²P',       text: 'IA²P opens registration for the Global AI Ethics Challenge 2026 — submissions close Aug 15' },
+  { label: 'IA²P',       text: 'New LMS courses now available: AI Safety and Alignment, Advanced AI Governance and more' },
 ];
+
+function buildTickerHTML(items) {
+  return items.map(item => `<span style="display:inline-flex;align-items:center;gap:0.6rem;padding:0 2rem;flex-shrink:0">` +
+    `<span style="background:${item.label==='IA²P'?'var(--gold)':'rgba(201,168,76,0.2)'};color:${item.label==='IA²P'?'var(--black)':'var(--gold)'};font-size:0.55rem;font-weight:700;letter-spacing:0.1em;padding:0.15rem 0.5rem;white-space:nowrap">${item.label}</span>` +
+    `<span style="font-size:0.72rem;color:var(--white-dim);white-space:nowrap">${item.text}</span>` +
+    `<span style="color:var(--gold-border);margin-left:1rem">◆</span></span>`
+  ).join('');
+}
 
 function buildTicker() {
   const track = document.getElementById('ticker-track');
-  if (!track) return;
-  // Duplicate items for seamless loop
-  const allItems = [...TICKER_ITEMS, ...TICKER_ITEMS];
-  track.innerHTML = allItems.map(item => `
-    <span style="display:inline-flex;align-items:center;gap:0.6rem;padding:0 2rem;height:40px;flex-shrink:0">
-      <span style="background:${item.label==='IA²P'?'var(--gold)':'rgba(201,168,76,0.2)'};color:${item.label==='IA²P'?'var(--black)':'var(--gold)'};font-size:0.55rem;font-weight:700;letter-spacing:0.1em;padding:0.15rem 0.5rem;white-space:nowrap">${item.label}</span>
-      <span style="font-size:0.72rem;color:var(--white-dim);white-space:nowrap">${item.text}</span>
-      <span style="color:var(--gold-border);margin-left:1rem">◆</span>
-    </span>
-  `).join('');
+  if (track) track.innerHTML = buildTickerHTML([...TICKER_ITEMS,...TICKER_ITEMS]);
+}
+
+function buildHomeTicker() {
+  const track = document.getElementById('home-ticker-track');
+  if (track) track.innerHTML = buildTickerHTML([...TICKER_ITEMS,...TICKER_ITEMS]);
 }
 
 function initTicker() {
   buildTicker();
-  // Also build the homepage ticker if it exists
   buildHomeTicker();
 }
 
-function buildHomeTicker() {
-  const homeTrack = document.getElementById('home-ticker-track');
-  if (!homeTrack) return;
-  const allItems = [...TICKER_ITEMS, ...TICKER_ITEMS];
-  homeTrack.innerHTML = allItems.map(item => `
-    <span style="display:inline-flex;align-items:center;gap:0.6rem;padding:0 2rem;height:38px;flex-shrink:0">
-      <span style="background:${item.label==='IA²P'?'var(--gold)':'rgba(201,168,76,0.15)'};color:${item.label==='IA²P'?'var(--black)':'var(--gold)'};font-size:0.55rem;font-weight:700;letter-spacing:0.1em;padding:0.15rem 0.5rem;white-space:nowrap">${item.label}</span>
-      <span style="font-size:0.7rem;color:var(--white-dim);white-space:nowrap">${item.text}</span>
-      <span style="color:var(--gold-border);margin-left:1rem">◆</span>
-    </span>
-  `).join('');
-}
-
-/* ── Init showcase on page show ── */
+/* ── Init showcase ── */
 function initShowcase() {
   renderShowcaseGrid();
-  // small delay to ensure DOM ready
-  setTimeout(() => {
-    buildTicker();
-    // mark first emoji selected by default
-    const firstEmoji = document.querySelector('#sc-emoji-picker button');
-    if (firstEmoji) selectScEmoji('🤖', firstEmoji);
-  }, 50);
+  buildTicker();
+  resetEmojiPicker();
 }
 
 /* ── Init ── */
 document.addEventListener('DOMContentLoaded', () => {
   renderCMS();
+  buildHomeTicker();
+  checkProjectHash();
   initTicker();
+  renderCMS();
 });
 </script>
 </body>
