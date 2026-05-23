@@ -1249,6 +1249,346 @@
     .excellence-grid { grid-template-columns: 1fr; }
     .countdown-strip { flex-direction: column; align-items: flex-start; }
   }
+
+  /* ── CMS PIN GATE ── */
+  .cms-gate-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(8,8,8,0.96);
+    backdrop-filter: blur(24px);
+    z-index: 9000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease;
+  }
+  @keyframes fadeIn { from { opacity:0 } to { opacity:1 } }
+
+  .cms-gate-box {
+    background: var(--black-3);
+    border: 1px solid var(--gold-border);
+    padding: 3rem 2.5rem;
+    max-width: 420px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 0 80px rgba(201,168,76,0.08);
+  }
+  .cms-gate-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .cms-gate-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    filter: grayscale(0.3);
+  }
+  .cms-gate-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.4rem;
+  }
+  .cms-gate-sub {
+    font-size: 0.72rem;
+    color: var(--white-dim);
+    letter-spacing: 0.06em;
+    margin-bottom: 2rem;
+  }
+  .cms-pin-inputs {
+    display: flex;
+    gap: 0.6rem;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+  .cms-pin-digit {
+    width: 48px;
+    height: 56px;
+    background: var(--black-4);
+    border: 1px solid var(--gold-border);
+    color: var(--gold-light);
+    font-family: 'Cinzel', serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    text-align: center;
+    outline: none;
+    caret-color: var(--gold);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    -webkit-text-security: disc;
+  }
+  .cms-pin-digit:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(201,168,76,0.12);
+  }
+  .cms-pin-digit.error {
+    border-color: #c83c3c;
+    box-shadow: 0 0 0 3px rgba(200,60,60,0.12);
+    animation: shake 0.3s ease;
+  }
+  @keyframes shake {
+    0%,100% { transform: translateX(0) }
+    25%      { transform: translateX(-6px) }
+    75%      { transform: translateX(6px) }
+  }
+  .cms-gate-error {
+    font-size: 0.68rem;
+    color: #e05555;
+    letter-spacing: 0.08em;
+    margin-bottom: 1rem;
+    min-height: 1rem;
+    transition: opacity 0.2s;
+  }
+  .cms-gate-cancel {
+    background: none;
+    border: none;
+    color: var(--white-dim);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+  }
+  .cms-gate-cancel:hover { opacity: 1; }
+
+
+  /* ── CHANGE PIN PANEL (inside gate box) ── */
+  .cms-change-panel {
+    display: none;
+    text-align: left;
+    margin-top: 1.2rem;
+    border-top: 1px solid var(--gold-border);
+    padding-top: 1.2rem;
+  }
+  .cms-change-panel.visible { display: block; }
+
+  .cms-change-label {
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+  .cms-change-input {
+    width: 100%;
+    background: var(--black-4);
+    border: 1px solid var(--gold-border);
+    color: var(--white);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.78rem;
+    padding: 0.55rem 0.8rem;
+    outline: none;
+    margin-bottom: 0.6rem;
+    transition: border-color 0.2s;
+    letter-spacing: 0.05em;
+  }
+  .cms-change-input:focus { border-color: var(--gold); }
+  .cms-change-input::placeholder { color: rgba(248,244,236,0.3); }
+
+  .cms-change-row {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.2rem;
+  }
+  .cms-change-btn {
+    flex: 1;
+    background: var(--gold);
+    color: var(--black);
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.55rem 1rem;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .cms-change-btn:hover { opacity: 0.85; }
+  .cms-change-btn.secondary {
+    background: transparent;
+    border: 1px solid var(--gold-border);
+    color: var(--white-dim);
+  }
+  .cms-change-btn.secondary:hover { border-color: var(--gold); color: var(--gold); }
+
+  .cms-change-msg {
+    font-size: 0.65rem;
+    margin-top: 0.5rem;
+    min-height: 0.9rem;
+    letter-spacing: 0.04em;
+  }
+  .cms-change-msg.success { color: #5ecb7a; }
+  .cms-change-msg.error   { color: #e05555; }
+
+  .cms-forgot-link {
+    background: none;
+    border: none;
+    color: rgba(201,168,76,0.5);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    margin-top: 0.8rem;
+    display: block;
+    text-align: center;
+    transition: color 0.2s;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .cms-forgot-link:hover { color: var(--gold); }
+
+  /* Token entry step */
+  .cms-token-step { display: none; }
+  .cms-token-step.visible { display: block; }
+  .cms-request-step { display: block; }
+  .cms-request-step.hidden { display: none; }
+
+
+  /* ── ARTICLE READER MODAL ── */
+  .article-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(4,4,4,0.97);
+    backdrop-filter: blur(32px);
+    z-index: 8000;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    overflow-y: auto;
+    padding: 2rem 1rem 4rem;
+    animation: fadeIn 0.25s ease;
+  }
+  .article-reader {
+    max-width: 780px;
+    width: 100%;
+    background: var(--black-3);
+    border: 1px solid var(--gold-border);
+    position: relative;
+    margin-top: 2rem;
+  }
+  .article-reader::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .article-reader-header {
+    padding: 2.5rem 2.5rem 1.5rem;
+    border-bottom: 1px solid var(--gold-border);
+  }
+  .article-reader-category {
+    font-size: 0.58rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.8rem;
+  }
+  .article-reader-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.5rem, 4vw, 2.2rem);
+    font-weight: 600;
+    line-height: 1.25;
+    margin-bottom: 0.6rem;
+    color: var(--white);
+  }
+  .article-reader-subtitle {
+    font-size: 0.95rem;
+    color: var(--white-dim);
+    font-style: italic;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+  }
+  .article-reader-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    font-size: 0.68rem;
+    color: var(--white-dim);
+    margin-top: 1rem;
+  }
+  .article-reader-meta span { display: flex; align-items: center; gap: 0.3rem; }
+  .article-reader-meta strong { color: var(--gold-light); }
+  .article-reader-body {
+    padding: 2.5rem;
+    font-size: 0.88rem;
+    line-height: 1.9;
+    color: rgba(248,244,236,0.82);
+  }
+  .article-reader-body p { margin-bottom: 1.2rem; }
+  .article-reader-body h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    color: var(--white);
+    margin: 2rem 0 0.6rem;
+  }
+  .article-reader-keywords {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--gold-border);
+  }
+  .article-reader-keywords span {
+    background: rgba(201,168,76,0.07);
+    border: 1px solid var(--gold-border);
+    font-size: 0.6rem;
+    padding: 0.2rem 0.6rem;
+    color: var(--white-dim);
+    letter-spacing: 0.06em;
+  }
+  .article-reader-footer {
+    padding: 1.5rem 2.5rem 2rem;
+    border-top: 1px solid var(--gold-border);
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .article-reader-doi {
+    font-size: 0.62rem;
+    color: rgba(201,168,76,0.45);
+    letter-spacing: 0.06em;
+  }
+  .article-close-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(201,168,76,0.08);
+    border: 1px solid var(--gold-border);
+    color: var(--white-dim);
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: all 0.2s;
+    z-index: 10;
+  }
+  .article-close-btn:hover { background: var(--gold); color: var(--black); border-color: var(--gold); }
+  .article-draft-banner {
+    background: rgba(201,168,76,0.08);
+    border-left: 3px solid var(--gold);
+    padding: 0.7rem 1.2rem;
+    font-size: 0.68rem;
+    color: var(--gold);
+    letter-spacing: 0.06em;
+    margin-bottom: 1.5rem;
+  }
+
 </style>
 </head>
 <body>
@@ -1515,7 +1855,7 @@
     </div>
   </div>
 
-  <section style="background:var(--black)">
+  <section style="background:var(--black);padding:0 3rem 4rem">
 
     <!-- ── INLINE UPLOAD FORM ── -->
     <div id="showcase-upload-panel" style="display:none;margin-bottom:3rem">
@@ -1618,32 +1958,66 @@
       </div>
     </div>
 
-    <!-- FILTERS -->
-    <div class="filters-bar" id="sc-filters-bar">
-      <button class="filter-btn active" onclick="filterProjects('all',this)">All Projects</button>
-      <button class="filter-btn" onclick="filterProjects('nlp',this)">NLP &amp; Language</button>
-      <button class="filter-btn" onclick="filterProjects('vision',this)">Computer Vision</button>
-      <button class="filter-btn" onclick="filterProjects('ethics',this)">AI Ethics</button>
-      <button class="filter-btn" onclick="filterProjects('healthcare',this)">Healthcare</button>
-      <button class="filter-btn" onclick="filterProjects('policy',this)">Policy</button>
-      <button class="filter-btn" onclick="filterProjects('robotics',this)">Robotics</button>
-      <button class="filter-btn" onclick="filterProjects('award',this)">Award Winners</button>
-    </div>
+    <!-- GITHUB-STYLE LAYOUT -->
+    <div class="showcase-layout" id="showcase-layout">
 
-    <!-- PROJECT COUNT -->
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem">
-      <div id="sc-count" style="font-size:0.72rem;color:var(--white-dim)"></div>
-      <div style="display:flex;gap:0.5rem;align-items:center">
-        <span style="font-size:0.65rem;color:var(--white-dim)">Sort:</span>
-        <select id="sc-sort" onchange="renderShowcaseGrid()" style="background:var(--black-3);border:1px solid var(--gold-border);color:var(--white);font-family:'Montserrat',sans-serif;font-size:0.65rem;padding:0.3rem 0.6rem;outline:none">
-          <option value="newest">Newest First</option>
-          <option value="votes">Most Voted</option>
-        </select>
+      <!-- LEFT SIDEBAR: profile card -->
+      <aside class="showcase-sidebar" id="showcase-sidebar">
+        <div class="showcase-sidebar-avatar" id="sc-profile-avatar">🌐</div>
+        <div class="showcase-sidebar-name" id="sc-profile-name">IA²P Community</div>
+        <div class="showcase-sidebar-handle" id="sc-profile-handle">@ia2p-showcase</div>
+        <div class="showcase-sidebar-bio" id="sc-profile-bio">A global showcase of AI research, tools, and experiments shared by the IA²P community.</div>
+        <div class="showcase-sidebar-stat">📁 <strong id="sc-stat-repos">0</strong>&nbsp;repositories</div>
+        <div class="showcase-sidebar-stat">♥ <strong id="sc-stat-stars">0</strong>&nbsp;total stars</div>
+        <div class="showcase-sidebar-stat">🌍 <strong id="sc-stat-countries">0</strong>&nbsp;countries represented</div>
+        <div style="margin-top:1.5rem">
+          <button class="btn-primary" style="width:100%;justify-content:center" onclick="toggleUploadForm()"><span>+ New Repository</span></button>
+        </div>
+        <!-- Topic filter cloud -->
+        <div style="margin-top:1.5rem;padding-top:1.2rem;border-top:1px solid var(--gold-border)">
+          <div style="font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:0.8rem">Topics</div>
+          <div id="sc-topic-cloud" style="display:flex;flex-wrap:wrap;gap:0.4rem"></div>
+        </div>
+      </aside>
+
+      <!-- RIGHT: repo list -->
+      <div>
+        <!-- Tabs -->
+        <div class="showcase-repo-tabs">
+          <button class="showcase-repo-tab active" onclick="switchShowcaseTab('repos',this)">
+            📁 Repositories <span class="tab-count" id="tab-repos-count">0</span>
+          </button>
+          <button class="showcase-repo-tab" onclick="switchShowcaseTab('starred',this)">
+            ⭐ Starred <span class="tab-count" id="tab-starred-count">0</span>
+          </button>
+        </div>
+
+        <!-- Search + sort bar -->
+        <div class="showcase-search-bar">
+          <input class="showcase-search-input" id="sc-search" type="text" placeholder="Find a repository…" oninput="renderShowcaseGrid()">
+          <select class="repo-sort-select" id="sc-sort" onchange="renderShowcaseGrid()">
+            <option value="newest">Last updated</option>
+            <option value="votes">Most starred</option>
+            <option value="name">Name</option>
+          </select>
+          <select class="repo-sort-select" id="sc-lang-filter" onchange="renderShowcaseGrid()">
+            <option value="all">All topics</option>
+            <option value="nlp">NLP</option>
+            <option value="vision">Vision</option>
+            <option value="ethics">Ethics</option>
+            <option value="healthcare">Healthcare</option>
+            <option value="policy">Policy</option>
+            <option value="robotics">Robotics</option>
+            <option value="climate">Climate</option>
+            <option value="education">Education</option>
+            <option value="finance">Finance</option>
+          </select>
+        </div>
+
+        <div id="sc-count" style="font-size:0.68rem;color:var(--white-dim);margin-bottom:1rem"></div>
+        <div class="showcase-grid" id="showcaseGrid"></div>
       </div>
     </div>
-
-    <!-- GRID -->
-    <div class="showcase-grid" id="showcaseGrid"></div>
 
   </section>
 
@@ -1680,13 +2054,13 @@
         <div class="form-row full">
           <div class="form-group">
             <label>Project Title *</label>
-            <input type="text" placeholder="Enter your project's full title">
+            <input type="text" id="sub-title" placeholder="Enter your project's full title">
           </div>
         </div>
         <div class="form-row">
           <div class="form-group">
             <label>Category *</label>
-            <select>
+            <select id="sub-category">
               <option value="">Select a category</option>
               <option>NLP &amp; Language Models</option>
               <option>Computer Vision</option>
@@ -1702,7 +2076,7 @@
           </div>
           <div class="form-group">
             <label>Development Stage</label>
-            <select>
+            <select id="sub-stage">
               <option>Proof of Concept</option>
               <option>Research / Academic</option>
               <option>Beta / Prototype</option>
@@ -1713,13 +2087,13 @@
         <div class="form-row full">
           <div class="form-group">
             <label>Short Description (max 300 chars) *</label>
-            <input type="text" placeholder="One-line summary of your project" maxlength="300">
+            <input type="text" id="sub-desc" placeholder="One-line summary of your project" maxlength="300">
           </div>
         </div>
         <div class="form-row full">
           <div class="form-group">
             <label>Full Abstract *</label>
-            <textarea placeholder="Describe your project in detail — problem statement, methodology, results, and impact..."></textarea>
+            <textarea id="sub-abstract" placeholder="Describe your project in detail — problem statement, methodology, results, and impact..."></textarea>
           </div>
         </div>
 
@@ -1727,27 +2101,27 @@
         <div class="form-row">
           <div class="form-group">
             <label>Lead Researcher / Author *</label>
-            <input type="text" placeholder="Full name">
+            <input type="text" id="sub-author" placeholder="Full name">
           </div>
           <div class="form-group">
             <label>Institution / Organisation</label>
-            <input type="text" placeholder="University, company, or independent">
+            <input type="text" id="sub-institution" placeholder="University, company, or independent">
           </div>
         </div>
         <div class="form-row">
           <div class="form-group">
             <label>Contact Email *</label>
-            <input type="email" placeholder="contact@institution.edu">
+            <input type="email" id="sub-email" placeholder="contact@institution.edu">
           </div>
           <div class="form-group">
             <label>Country of Origin *</label>
-            <input type="text" placeholder="Country">
+            <input type="text" id="sub-country" placeholder="Country">
           </div>
         </div>
         <div class="form-row full">
           <div class="form-group">
             <label>Additional Team Members</label>
-            <input type="text" placeholder="Names separated by commas">
+            <input type="text" id="sub-team" placeholder="Names separated by commas">
           </div>
         </div>
 
@@ -1755,43 +2129,49 @@
         <div class="form-row">
           <div class="form-group">
             <label>Project URL / Demo</label>
-            <input type="url" placeholder="https://yourproject.com">
+            <input type="url" id="sub-url" placeholder="https://yourproject.com">
           </div>
           <div class="form-group">
             <label>GitHub / Code Repository</label>
-            <input type="url" placeholder="https://github.com/...">
+            <input type="url" id="sub-github" placeholder="https://github.com/...">
           </div>
         </div>
         <div class="form-row">
           <div class="form-group">
             <label>Research Paper / Preprint</label>
-            <input type="url" placeholder="arXiv, DOI, or PDF link">
+            <input type="url" id="sub-paper" placeholder="arXiv, DOI, or PDF link">
           </div>
           <div class="form-group">
             <label>Video Demonstration</label>
-            <input type="url" placeholder="YouTube or Vimeo URL">
+            <input type="url" id="sub-video" placeholder="YouTube or Vimeo URL">
           </div>
         </div>
 
         <div class="form-section-label">Files &amp; Assets</div>
-        <div class="upload-zone" onclick="showToast('File upload ready — connect your storage to enable.')">
-          <div class="upload-icon">↑</div>
-          <div class="upload-text">Drop project files, images, or a PDF report here</div>
+        <input type="file" id="sub-file-input" multiple accept=".pdf,.png,.jpg,.jpeg,.zip,.gif" style="display:none" onchange="handleSubFileSelect(this)">
+        <div class="upload-zone" id="sub-upload-zone"
+          onclick="document.getElementById('sub-file-input').click()"
+          ondragover="event.preventDefault();this.style.borderColor='var(--gold)'"
+          ondragleave="this.style.borderColor=''"
+          ondrop="handleSubFileDrop(event)">
+          <div class="upload-icon" id="sub-upload-icon">↑</div>
+          <div class="upload-text" id="sub-upload-text">Drop project files, images, or a PDF report here</div>
           <div class="upload-hint">PDF, PNG, JPG, ZIP · Max 50MB per file</div>
         </div>
+        <div id="sub-file-list" style="margin-top:0.5rem;display:flex;flex-wrap:wrap;gap:0.4rem"></div>
 
         <div class="form-section-label">Submission Options</div>
         <div class="form-row">
           <div class="form-group">
             <label>Submit to Showcase?</label>
-            <select>
+            <select id="sub-showcase">
               <option>Yes — List publicly in showcase</option>
               <option>No — Internal review only</option>
             </select>
           </div>
           <div class="form-group">
             <label>Enter a Competition?</label>
-            <select>
+            <select id="sub-competition">
               <option>None</option>
               <option>Global AI Ethics Challenge 2026</option>
               <option>AI for Social Good Hackathon</option>
@@ -1803,7 +2183,7 @@
         <div class="form-row full">
           <div class="form-group">
             <label>Acknowledgements &amp; Conflicts of Interest</label>
-            <textarea placeholder="Funding sources, institutional affiliations, or any conflicts of interest..." style="min-height:80px"></textarea>
+            <textarea id="sub-ack" placeholder="Funding sources, institutional affiliations, or any conflicts of interest..." style="min-height:80px"></textarea>
           </div>
         </div>
 
@@ -2299,7 +2679,7 @@
         <div style="font-size:0.75rem;color:var(--white-dim);line-height:1.9;margin-bottom:1.5rem">A comprehensive peer-reviewed analysis of international legal frameworks and regulatory architectures for AI deployment at scale across the G20 nations, examining enforcement mechanisms, jurisdictional conflicts, and the emerging doctrine of algorithmic accountability.</div>
         <div style="font-size:0.72rem;color:var(--white-dim);margin-bottom:1.5rem">By <strong style="color:var(--white)">Prof. Anika Rödel</strong> · Humboldt University, Berlin &nbsp;|&nbsp; <strong style="color:var(--white)">Dr. James Okafor</strong> · LSE</div>
         <div style="display:flex;gap:1rem">
-          <button class="btn-primary" onclick="showToast('Opening full article...')"><span>Read Full Article</span></button>
+          <button class="btn-primary" onclick="openArticle('journal', 1)"><span>Read Full Article</span></button>
           <button class="btn-secondary" onclick="showToast('PDF downloading...')">Download PDF</button>
         </div>
       </div>
@@ -2335,7 +2715,7 @@
         <div style="font-size:0.75rem;color:var(--white-dim);line-height:1.9;margin-bottom:1.5rem">An in-depth profile of Dr. Siona Mbeki and her quietly influential voice in AI safety research — tracing her journey from computational linguistics in Nairobi to the policy corridors of Geneva.</div>
         <div style="font-size:0.72rem;color:var(--white-dim);margin-bottom:1.5rem">By <strong style="color:var(--white)">Marcus Chen</strong> · Senior Correspondent</div>
         <div style="display:flex;gap:1rem">
-          <button class="btn-primary" onclick="showToast('Opening cover story...')"><span>Read Cover Story</span></button>
+          <button class="btn-primary" onclick="openArticle('magazine', 1)"><span>Read Cover Story</span></button>
         </div>
       </div>
       <div style="background:linear-gradient(135deg,rgba(201,168,76,0.08),var(--black-4));display:flex;align-items:center;justify-content:center;font-size:6rem;min-height:300px">👤</div>
@@ -2510,6 +2890,8 @@ const CMS = {
    PAGE ROUTING
 ═══════════════════════════════════════════════ */
 function showPage(id) {
+  // Lock CMS again when navigating away
+  if (id !== 'cms') _cmsUnlocked = false;
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   const pg = document.getElementById('page-' + id);
   if (!pg) { showToast('Page coming soon.'); return; }
@@ -2517,7 +2899,10 @@ function showPage(id) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
   if (id === 'journal')  renderJournalPage();
   if (id === 'magazine') renderMagazinePage();
-  if (id === 'cms')      renderCMS();
+  if (id === 'cms') {
+    if (!_cmsUnlocked) { showCMSGate(); return; }
+    renderCMS();
+  }
   if (id === 'lms')      initLMS();
   if (id === 'showcase') initShowcase();
 }
@@ -2552,7 +2937,7 @@ function renderJournalPage() {
         ${a.keywords ? `<div style="margin-top:0.6rem;display:flex;gap:0.4rem;flex-wrap:wrap">${a.keywords.split(',').map(k=>`<span style="background:rgba(201,168,76,0.08);border:1px solid var(--gold-border);font-size:0.58rem;padding:0.15rem 0.5rem;color:var(--white-dim)">${k.trim()}</span>`).join('')}</div>` : ''}
       </div>
       <div style="display:flex;flex-direction:column;gap:0.5rem;min-width:110px">
-        <button class="btn-primary" onclick="showToast('Opening article...')"><span>Read</span></button>
+        <button class="btn-primary" onclick="openArticle('journal', a.id)"><span>Read</span></button>
         <button class="btn-secondary" style="padding:0.4rem 1rem;font-size:0.65rem" onclick="showToast('PDF downloading...')">PDF</button>
       </div>
     </div>
@@ -2569,6 +2954,7 @@ function renderMagazinePage() {
   const published = CMS.magazine.filter(a => a.status === 'published');
   grid.innerHTML = published.map(a => `
     <div style="background:var(--black-3);border:1px solid var(--gold-border);overflow:hidden;transition:all 0.3s;cursor:pointer"
+         onclick="openArticle('magazine', a.id)"
          onmouseover="this.style.borderColor='var(--gold)';this.style.transform='translateY(-4px)';this.style.boxShadow='0 20px 60px rgba(201,168,76,0.12)'"
          onmouseout="this.style.borderColor='var(--gold-border)';this.style.transform='';this.style.boxShadow=''">
       <div style="height:180px;background:linear-gradient(135deg,rgba(201,168,76,0.08),var(--black-4));display:flex;align-items:center;justify-content:center;font-size:4rem;position:relative">
@@ -2582,7 +2968,7 @@ function renderMagazinePage() {
         <div style="font-size:0.72rem;color:var(--white-dim);line-height:1.7;margin-bottom:1.2rem">${a.summary}</div>
         <div style="display:flex;justify-content:space-between;align-items:center;padding-top:1rem;border-top:1px solid var(--gold-border)">
           <div style="font-size:0.68rem;color:var(--white-dim)">By <strong style="color:var(--white)">${a.author}</strong></div>
-          <a href="#" style="font-size:0.65rem;color:var(--gold);text-decoration:none" onclick="showToast('Opening article...')">Read →</a>
+          <a href="#" style="font-size:0.65rem;color:var(--gold);text-decoration:none" onclick="event.preventDefault();openArticle('magazine', a.id)">Read →</a>
         </div>
       </div>
     </div>
@@ -2849,9 +3235,102 @@ function showToast(msg) {
 /* ═══════════════════════════════════════════════
    PROJECT SUBMIT
 ═══════════════════════════════════════════════ */
-function handleSubmit() {
-  showToast('🏆 Project submitted! You will receive confirmation within 24 hours.');
-  setTimeout(() => showPage('showcase'), 1800);
+function handleSubFileSelect(input) {
+  _subFiles = Array.from(input.files);
+  renderSubFileList();
+}
+
+function handleSubFileDrop(e) {
+  e.preventDefault();
+  document.getElementById('sub-upload-zone').style.borderColor = '';
+  _subFiles = Array.from(e.dataTransfer.files);
+  renderSubFileList();
+}
+
+function renderSubFileList() {
+  const list = document.getElementById('sub-file-list');
+  if (!list) return;
+  if (!_subFiles.length) { list.innerHTML = ''; return; }
+  list.innerHTML = _subFiles.map((f, i) =>
+    `<span style="display:inline-flex;align-items:center;gap:0.4rem;background:rgba(201,168,76,0.1);border:1px solid var(--gold-border);padding:0.25rem 0.6rem;font-size:0.65rem;color:var(--gold)">
+      ${f.name} <span onclick="_subFiles.splice(${i},1);renderSubFileList()" style="cursor:pointer;opacity:0.6;margin-left:0.2rem">✕</span>
+    </span>`
+  ).join('');
+  document.getElementById('sub-upload-text').textContent = _subFiles.length + ' file(s) selected';
+}
+
+async function handleSubmit() {
+  const title    = document.getElementById('sub-title')?.value.trim();
+  const category = document.getElementById('sub-category')?.value;
+  const desc     = document.getElementById('sub-desc')?.value.trim();
+  const abstract = document.getElementById('sub-abstract')?.value.trim();
+  const author   = document.getElementById('sub-author')?.value.trim();
+  const email    = document.getElementById('sub-email')?.value.trim();
+  const country  = document.getElementById('sub-country')?.value.trim();
+
+  if (!title)    { showToast('⚠ Please enter a project title.'); return; }
+  if (!category) { showToast('⚠ Please select a category.'); return; }
+  if (!desc)     { showToast('⚠ Please add a short description.'); return; }
+  if (!abstract) { showToast('⚠ Please add a full abstract.'); return; }
+  if (!author)   { showToast('⚠ Please enter the lead researcher name.'); return; }
+  if (!email)    { showToast('⚠ Please enter a contact email.'); return; }
+  if (!country)  { showToast('⚠ Please enter your country.'); return; }
+
+  const submitBtn = document.querySelector('#page-submit .btn-primary');
+  if (submitBtn) { submitBtn.innerHTML = '<span>Submitting…</span>'; submitBtn.disabled = true; }
+
+  const formData = new FormData();
+  formData.append('title',       title);
+  formData.append('category',    category);
+  formData.append('stage',       document.getElementById('sub-stage')?.value || '');
+  formData.append('description', desc);
+  formData.append('abstract',    abstract);
+  formData.append('author',      author);
+  formData.append('institution', document.getElementById('sub-institution')?.value.trim() || '');
+  formData.append('email',       email);
+  formData.append('country',     country);
+  formData.append('team',        document.getElementById('sub-team')?.value.trim() || '');
+  formData.append('url',         document.getElementById('sub-url')?.value.trim() || '');
+  formData.append('github',      document.getElementById('sub-github')?.value.trim() || '');
+  formData.append('paper',       document.getElementById('sub-paper')?.value.trim() || '');
+  formData.append('video',       document.getElementById('sub-video')?.value.trim() || '');
+  formData.append('showcase',    document.getElementById('sub-showcase')?.value || '');
+  formData.append('competition', document.getElementById('sub-competition')?.value || '');
+  formData.append('ack',         document.getElementById('sub-ack')?.value.trim() || '');
+  formData.append('submitted_at', new Date().toISOString());
+
+  if (_subFiles && _subFiles.length) {
+    _subFiles.forEach(f => formData.append('files', f));
+  }
+
+  try {
+    const res = await fetch('https://rehs.unb.college/submit', {
+      method: 'POST',
+      body: formData
+    });
+
+    if (res.ok) {
+      showToast('✅ Project submitted successfully! You will receive confirmation within 24 hours.');
+      _subFiles = [];
+      renderSubFileList();
+      // Reset form fields
+      ['sub-title','sub-desc','sub-abstract','sub-author','sub-institution','sub-email',
+       'sub-country','sub-team','sub-url','sub-github','sub-paper','sub-video','sub-ack'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = '';
+      });
+      setTimeout(() => showPage('showcase'), 2000);
+    } else {
+      const errText = await res.text().catch(() => '');
+      showToast('❌ Submission failed (' + res.status + '). Please try again or email us directly.');
+      console.error('Submit error:', res.status, errText);
+    }
+  } catch (err) {
+    showToast('❌ Network error — please check your connection and try again.');
+    console.error('Submit fetch error:', err);
+  } finally {
+    if (submitBtn) { submitBtn.innerHTML = '<span>Submit Project</span>'; submitBtn.disabled = false; }
+  }
 }
 
 /* ═══════════════════════════════════════════════
@@ -3437,7 +3916,8 @@ let _scSelectedEmoji = '🤖';
 let _scUploadOpen = false;
 let _scImageData = null;
 let _scEditingId = null;     // which project is being edited
-let _scViewingId = null;     // which project detail is open
+let _scViewingId = null;
+let _subFiles = [];     // which project detail is open
 
 /* ── generate a simple edit key for the submitter ── */
 function generateEditKey() {
@@ -3679,59 +4159,146 @@ function renderProjectDetail() {
   const bg = grad[p.category] || '135deg,#141414,#1a1a1a';
 
   main.style.display = 'block';
+  const slug = p.author.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'')
+             + '/' + p.title.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'').slice(0,30);
+  const langColor = (LANG_COLORS||{})[p.category] || '#8e8e8e';
+  const topics = [p.category, ...(p.github?['open-source']:[]), ...(p.url?['demo']:[])];
+
   main.innerHTML = `
-    <div style="min-height:100vh;background:var(--black);padding:6rem 3rem 4rem">
-      <button onclick="closeProjectDetail()" style="background:transparent;border:none;color:var(--gold);font-size:0.72rem;cursor:pointer;margin-bottom:2rem;display:flex;align-items:center;gap:0.5rem;font-family:'Montserrat',sans-serif;padding:0">← Back to Showcase</button>
-      <div style="display:grid;grid-template-columns:1fr 320px;gap:3rem;max-width:1200px;align-items:start">
-        <div>
-          <div style="height:300px;background:linear-gradient(${bg});display:flex;align-items:center;justify-content:center;font-size:6rem;margin-bottom:2rem;position:relative;overflow:hidden">
-            ${p.image ? `<img src="${p.image}" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0">` : `<span style="position:relative;z-index:1">${p.emoji}</span>`}
-            ${p.badge ? `<div style="position:absolute;top:1rem;left:1rem;background:var(--gold);color:var(--black);font-size:0.65rem;font-weight:700;padding:0.3rem 0.8rem">${p.badge}</div>` : ''}
-          </div>
-          <div style="font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem">${p.category.toUpperCase()}</div>
-          <h1 style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,4vw,3rem);font-weight:300;margin-bottom:1rem;line-height:1.2">${p.title}</h1>
-          <div style="font-size:0.8rem;color:var(--white-dim);margin-bottom:1rem">By <strong style="color:var(--white)">${p.author}</strong>${p.country?' · '+p.country:''}</div>
-          <div style="font-size:0.85rem;color:var(--white-dim);line-height:2;margin-bottom:2rem;padding:1.5rem;background:var(--black-3);border-left:3px solid var(--gold)">${p.desc}</div>
-          ${(p.url||p.github) ? `<div style="display:flex;gap:1rem;margin-bottom:2rem">
-            ${p.url?`<a href="${p.url}" target="_blank" class="btn-primary"><span>View Demo ↗</span></a>`:''}
-            ${p.github?`<a href="${p.github}" target="_blank" class="btn-secondary">GitHub ↗</a>`:''}
-          </div>` : ''}
+    <div style="min-height:100vh;background:var(--black)">
+      <!-- Repo header bar -->
+      <div style="background:var(--black-2);border-bottom:1px solid var(--gold-border);padding:1.2rem 3rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap">
+        <button onclick="closeProjectDetail()" style="background:transparent;border:1px solid var(--gold-border);color:var(--gold);font-size:0.62rem;cursor:pointer;padding:0.35rem 0.8rem;font-family:'Montserrat',sans-serif;letter-spacing:0.08em;transition:all 0.2s" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--gold-border)'">← Showcase</button>
+        <div style="font-size:0.82rem;font-family:'Montserrat',sans-serif">
+          <span style="color:var(--gold);cursor:pointer" onclick="closeProjectDetail()">${p.author}</span>
+          <span style="color:var(--white-dim);margin:0 0.3rem">/</span>
+          <strong>${p.title}</strong>
         </div>
-        <div style="position:sticky;top:100px">
-          <div style="background:var(--black-3);border:1px solid var(--gold-border);padding:1.8rem;margin-bottom:1.5rem">
-            <div style="font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem">Project Info</div>
-            ${[['Submitted by',p.author],['Country',p.country||'—'],['Category',p.category.toUpperCase()],['Submitted',formatTimeAgo(p.ts)]].map(([k,v])=>`
-            <div style="display:flex;justify-content:space-between;padding:0.6rem 0;border-bottom:1px solid var(--gold-border)">
-              <span style="font-size:0.65rem;color:var(--white-dim)">${k}</span>
-              <span style="font-size:0.7rem;font-weight:500">${v}</span>
-            </div>`).join('')}
-            <div style="margin-top:1.2rem;display:flex;align-items:center;justify-content:space-between">
-              <span style="font-size:0.72rem;color:var(--white-dim)">Community votes</span>
-              <span style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:var(--gold)">${p.votes}</span>
+        <span style="font-size:0.55rem;border:1px solid var(--gold-border);color:var(--white-dim);padding:0.1rem 0.5rem;letter-spacing:0.08em">public</span>
+        ${p.badge ? `<span style="background:var(--gold);color:var(--black);font-size:0.55rem;font-weight:700;padding:0.15rem 0.5rem;letter-spacing:0.08em">${p.badge}</span>` : ''}
+      </div>
+
+      <!-- Repo sub-nav -->
+      <div style="background:var(--black-2);border-bottom:1px solid var(--gold-border);padding:0 3rem;display:flex;gap:0;overflow-x:auto">
+        ${[['📄 README','readme'],['🔬 About','about'],['🔗 Links','links'],['🔑 Manage','manage']].map(([label,tab],i)=>`
+          <button onclick="switchDetailTab('${tab}',this)" class="detail-tab-btn"
+            style="padding:0.7rem 1.2rem;background:transparent;border:none;border-bottom:2px solid ${i===0?'var(--gold)':'transparent'};color:${i===0?'var(--gold)':'var(--white-dim)'};font-family:'Montserrat',sans-serif;font-size:0.65rem;letter-spacing:0.06em;cursor:pointer;white-space:nowrap;transition:all 0.2s"
+            onmouseover="this.style.color='var(--gold)'" onmouseout="if(!this.classList.contains('dtab-active'))this.style.color='var(--white-dim)'"
+            ${i===0?'data-active="true"':''}>
+            ${label}
+          </button>`).join('')}
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 300px;gap:2.5rem;max-width:1200px;margin:0 auto;padding:2.5rem 3rem;align-items:start">
+
+        <!-- Main content panels -->
+        <div>
+          <!-- README panel -->
+          <div id="dtab-readme" class="detail-panel">
+            <div style="background:var(--black-3);border:1px solid var(--gold-border)">
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:0.8rem 1.2rem;border-bottom:1px solid var(--gold-border)">
+                <div style="font-size:0.68rem;color:var(--white-dim);display:flex;align-items:center;gap:0.5rem">
+                  📄 <strong style="color:var(--white)">README.md</strong>
+                </div>
+                <span style="font-size:0.6rem;color:rgba(201,168,76,0.4)">Last updated ${formatTimeAgo(p.ts)}</span>
+              </div>
+              <div style="padding:2rem 2.2rem;font-size:0.82rem;line-height:1.9;color:rgba(248,244,236,0.8)">
+                <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:400;margin:0 0 0.5rem;color:var(--white)">${p.emoji} ${p.title}</h2>
+                <p style="color:var(--gold);font-size:0.72rem;margin-bottom:1.5rem;font-style:italic">${p.desc}</p>
+                <hr style="border:none;border-top:1px solid var(--gold-border);margin:1.2rem 0">
+                <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;margin:1.2rem 0 0.5rem;color:var(--white)">About</h3>
+                <p>${p.desc}</p>
+                <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;margin:1.5rem 0 0.5rem;color:var(--white)">Project Details</h3>
+                <p>This project was submitted to the IA²P Showcase by <strong style="color:var(--white)">${p.author}</strong>${p.country?' from '+p.country:''}. It falls under the <strong style="color:var(--gold)">${p.category}</strong> category and is open for community exploration and feedback.</p>
+                ${p.url||p.github ? `
+                <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;margin:1.5rem 0 0.5rem;color:var(--white)">Getting Started</h3>
+                <p>Explore this project using the links below:</p>
+                <div style="background:var(--black-4);border:1px solid var(--gold-border);padding:1rem 1.2rem;font-family:monospace;font-size:0.75rem;color:var(--gold);margin-bottom:1rem">
+                  ${p.github?`# Clone the repository<br>git clone ${p.github}`:'# No repository link provided'}
+                </div>` : ''}
+              </div>
             </div>
-            <button onclick="voteProject(${p.id},this);document.querySelector('.detail-vote-count').textContent=SHOWCASE_PROJECTS.find(x=>x.id==${p.id}).votes" style="width:100%;margin-top:0.8rem;background:${p.voted?'var(--gold)':'transparent'};border:1px solid var(--gold);color:${p.voted?'var(--black)':'var(--gold)'};font-family:'Montserrat',sans-serif;font-size:0.7rem;font-weight:700;padding:0.6rem;cursor:pointer;letter-spacing:0.1em;transition:all 0.2s">
-              ${p.voted?'♥ Voted':'♥ Vote for this project'}
+          </div>
+
+          <!-- About panel -->
+          <div id="dtab-about" class="detail-panel" style="display:none">
+            <div style="background:var(--black-3);border:1px solid var(--gold-border);padding:2rem">
+              <div style="font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem">About this project</div>
+              ${[['Author',p.author],['Country',p.country||'—'],['Category',p.category],['Submitted',formatTimeAgo(p.ts)],['Visibility','Public'],['Stars','⭐ '+p.votes]].map(([k,v])=>
+                `<div style="display:flex;justify-content:space-between;align-items:center;padding:0.8rem 0;border-bottom:1px solid rgba(201,168,76,0.08);font-size:0.73rem">
+                  <span style="color:var(--white-dim)">${k}</span><strong>${v}</strong>
+                </div>`).join('')}
+              ${p.image ? `<img src="${p.image}" style="width:100%;margin-top:1.5rem;border:1px solid var(--gold-border)">` : ''}
+            </div>
+          </div>
+
+          <!-- Links panel -->
+          <div id="dtab-links" class="detail-panel" style="display:none">
+            <div style="background:var(--black-3);border:1px solid var(--gold-border);padding:2rem;display:flex;flex-direction:column;gap:1rem">
+              <div style="font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem">External Links</div>
+              ${p.url ? `<a href="${p.url}" target="_blank" style="display:flex;align-items:center;gap:1rem;background:var(--black-4);border:1px solid var(--gold-border);padding:1rem 1.2rem;text-decoration:none;color:var(--white);font-size:0.78rem;transition:border-color 0.2s" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--gold-border)'">🔗 <div><div style="font-weight:600">Live Demo</div><div style="font-size:0.65rem;color:var(--gold)">${p.url}</div></div></a>` : ''}
+              ${p.github ? `<a href="${p.github}" target="_blank" style="display:flex;align-items:center;gap:1rem;background:var(--black-4);border:1px solid var(--gold-border);padding:1rem 1.2rem;text-decoration:none;color:var(--white);font-size:0.78rem;transition:border-color 0.2s" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--gold-border)'">🐙 <div><div style="font-weight:600">GitHub Repository</div><div style="font-size:0.65rem;color:var(--gold)">${p.github}</div></div></a>` : ''}
+              ${!p.url && !p.github ? `<p style="color:var(--white-dim);font-size:0.75rem">No external links provided for this project.</p>` : ''}
+              <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--gold-border)">
+                <div style="font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:0.8rem">Share this project</div>
+                <div style="display:flex;gap:0.5rem">
+                  <input value="${shareURL}" readonly style="flex:1;background:var(--black-4);border:1px solid var(--gold-border);color:var(--white-dim);font-size:0.65rem;padding:0.5rem 0.8rem;font-family:'Montserrat',sans-serif;outline:none">
+                  <button onclick="navigator.clipboard?.writeText('${shareURL}');showToast('Link copied!')" style="background:var(--gold);border:none;color:var(--black);font-size:0.62rem;font-weight:700;padding:0.5rem 1rem;cursor:pointer;font-family:'Montserrat',sans-serif;white-space:nowrap">COPY</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Manage panel -->
+          <div id="dtab-manage" class="detail-panel" style="display:none">
+            <div style="background:var(--black-3);border:1px solid var(--gold-border);padding:2rem">
+              <div style="font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem">🔑 Manage Repository</div>
+              <p style="font-size:0.73rem;color:var(--white-dim);margin-bottom:1.5rem;line-height:1.7">Enter your 8-character edit key to modify or remove this project. You received this key when you first published.</p>
+              <input type="text" id="detail-edit-key" placeholder="XXXX-XXXX" style="width:100%;background:var(--black-4);border:1px solid var(--gold-border);color:var(--white);font-family:'Cinzel',sans-serif;font-size:1rem;padding:0.8rem 1rem;letter-spacing:0.3em;outline:none;text-transform:uppercase;margin-bottom:1rem;box-sizing:border-box">
+              <div style="display:flex;gap:0.8rem;flex-wrap:wrap">
+                <button onclick="verifyAndEdit(${p.id})" style="background:transparent;border:1px solid var(--gold);color:var(--gold);font-family:'Montserrat',sans-serif;font-size:0.68rem;font-weight:700;padding:0.6rem 1.4rem;cursor:pointer;letter-spacing:0.1em;transition:all 0.2s" onmouseover="this.style.background='var(--gold)';this.style.color='var(--black)'" onmouseout="this.style.background='transparent';this.style.color='var(--gold)'">✏ Edit Project</button>
+                <button onclick="verifyAndDelete(${p.id})" style="background:transparent;border:1px solid rgba(200,60,60,0.5);color:rgba(200,60,60,0.8);font-family:'Montserrat',sans-serif;font-size:0.68rem;font-weight:700;padding:0.6rem 1.4rem;cursor:pointer;letter-spacing:0.1em;transition:all 0.2s" onmouseover="this.style.background='rgba(200,60,60,0.1)'" onmouseout="this.style.background='transparent'">🗑 Delete Repository</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right sidebar -->
+        <aside style="position:sticky;top:100px;display:flex;flex-direction:column;gap:1.2rem">
+          <!-- About box -->
+          <div style="background:var(--black-3);border:1px solid var(--gold-border);padding:1.4rem">
+            <div style="font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem">About</div>
+            <p style="font-size:0.73rem;color:var(--white-dim);line-height:1.7;margin-bottom:1rem">${p.desc}</p>
+            <div style="display:flex;flex-wrap:wrap;gap:0.35rem;margin-bottom:1rem">${topics.map(t=>`<span class="repo-topic">${t}</span>`).join('')}</div>
+            <div style="display:flex;align-items:center;gap:0.4rem;font-size:0.68rem;color:var(--white-dim)">
+              <span class="repo-lang-dot" style="background:${langColor}"></span> ${p.category}
+            </div>
+          </div>
+
+          <!-- Star / vote -->
+          <div style="background:var(--black-3);border:1px solid var(--gold-border);padding:1.4rem">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.8rem">
+              <span style="font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold)">Stars</span>
+              <span style="font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--gold)">${p.votes}</span>
+            </div>
+            <button id="detail-star-btn" onclick="voteProject(${p.id},this);updateShowcaseSidebar()"
+              style="width:100%;background:${p.voted?'var(--gold)':'transparent'};border:1px solid var(--gold);color:${p.voted?'var(--black)':'var(--gold)'};font-family:'Montserrat',sans-serif;font-size:0.7rem;font-weight:700;padding:0.55rem;cursor:pointer;letter-spacing:0.08em;transition:all 0.2s">
+              ${p.voted?'⭐ Starred':'☆ Star this project'}
             </button>
           </div>
 
-          <div style="background:var(--black-3);border:1px solid var(--gold-border);padding:1.8rem;margin-bottom:1.5rem">
-            <div style="font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem">🔗 Share This Project</div>
-            <div style="display:flex;gap:0.5rem">
-              <input value="${shareURL}" readonly style="flex:1;background:var(--black-4);border:1px solid var(--gold-border);color:var(--white-dim);font-size:0.62rem;padding:0.4rem 0.6rem;font-family:'Montserrat',sans-serif;outline:none">
-              <button onclick="navigator.clipboard?.writeText('${shareURL}');showToast('Link copied!')" style="background:var(--gold);border:none;color:var(--black);font-size:0.6rem;font-weight:700;padding:0.4rem 0.8rem;cursor:pointer;font-family:'Montserrat',sans-serif;white-space:nowrap">COPY</button>
+          <!-- Contributor -->
+          <div style="background:var(--black-3);border:1px solid var(--gold-border);padding:1.4rem">
+            <div style="font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:0.8rem">Contributors</div>
+            <div style="display:flex;align-items:center;gap:0.7rem">
+              <div style="width:36px;height:36px;background:linear-gradient(135deg,rgba(201,168,76,0.3),rgba(201,168,76,0.05));border:1px solid var(--gold-border);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0">${p.emoji}</div>
+              <div>
+                <div style="font-size:0.75rem;font-weight:600">${p.author}</div>
+                <div style="font-size:0.62rem;color:var(--white-dim)">${p.country||'Global'}</div>
+              </div>
             </div>
           </div>
-
-          <div style="background:var(--black-3);border:1px solid var(--gold-border);padding:1.8rem">
-            <div style="font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem">🔑 Edit Your Project</div>
-            <p style="font-size:0.7rem;color:var(--white-dim);margin-bottom:1rem;line-height:1.6">Enter your edit key to modify or delete this project.</p>
-            <input type="text" id="detail-edit-key" placeholder="Your 8-character key" style="width:100%;background:var(--black-4);border:1px solid var(--gold-border);color:var(--white);font-family:'Cinzel',sans-serif;font-size:0.85rem;padding:0.6rem 0.8rem;letter-spacing:0.2em;outline:none;text-transform:uppercase;margin-bottom:0.8rem">
-            <div style="display:flex;gap:0.5rem">
-              <button onclick="verifyAndEdit(${p.id})" style="flex:1;background:transparent;border:1px solid var(--gold);color:var(--gold);font-family:'Montserrat',sans-serif;font-size:0.65rem;font-weight:700;padding:0.5rem;cursor:pointer;letter-spacing:0.1em;transition:all 0.2s" onmouseover="this.style.background='var(--gold)';this.style.color='var(--black)'" onmouseout="this.style.background='transparent';this.style.color='var(--gold)'">EDIT</button>
-              <button onclick="verifyAndDelete(${p.id})" style="flex:1;background:transparent;border:1px solid rgba(200,60,60,0.5);color:rgba(200,60,60,0.8);font-family:'Montserrat',sans-serif;font-size:0.65rem;font-weight:700;padding:0.5rem;cursor:pointer;letter-spacing:0.1em;transition:all 0.2s" onmouseover="this.style.background='rgba(200,60,60,0.1)'" onmouseout="this.style.background='transparent'">DELETE</button>
-            </div>
-          </div>
-        </div>
+        </aside>
       </div>
     </div>`;
 }
@@ -3767,56 +4334,173 @@ function verifyAndDelete(id) {
   renderShowcaseGrid();
 }
 
-/* ── Render grid ── */
+/* ── GitHub-style showcase tab switcher ── */
+let _scTab = 'repos';
+
+function switchDetailTab(tab, btn) {
+  document.querySelectorAll('.detail-panel').forEach(p => p.style.display = 'none');
+  document.querySelectorAll('.detail-tab-btn').forEach(b => {
+    b.style.borderBottomColor = 'transparent';
+    b.style.color = 'var(--white-dim)';
+    b.classList.remove('dtab-active');
+  });
+  const panel = document.getElementById('dtab-' + tab);
+  if (panel) panel.style.display = 'block';
+  if (btn) {
+    btn.style.borderBottomColor = 'var(--gold)';
+    btn.style.color = 'var(--gold)';
+    btn.classList.add('dtab-active');
+  }
+}
+
+function switchShowcaseTab(tab, btn) {
+  _scTab = tab;
+  document.querySelectorAll('.showcase-repo-tab').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  renderShowcaseGrid();
+}
+
+/* ── Update sidebar stats ── */
+function updateShowcaseSidebar() {
+  const total = SHOWCASE_PROJECTS.length;
+  const stars = SHOWCASE_PROJECTS.reduce((s, p) => s + p.votes, 0);
+  const countries = new Set(SHOWCASE_PROJECTS.map(p => p.country).filter(Boolean)).size;
+  const el = id => document.getElementById(id);
+  if (el('sc-stat-repos'))     el('sc-stat-repos').textContent = total;
+  if (el('sc-stat-stars'))     el('sc-stat-stars').textContent = stars;
+  if (el('sc-stat-countries')) el('sc-stat-countries').textContent = countries;
+  if (el('tab-repos-count'))   el('tab-repos-count').textContent = total;
+  const starred = SHOWCASE_PROJECTS.filter(p => p.voted).length;
+  if (el('tab-starred-count')) el('tab-starred-count').textContent = starred;
+
+  // Build topic cloud
+  const topicCloud = el('sc-topic-cloud');
+  if (topicCloud) {
+    const topicCounts = {};
+    SHOWCASE_PROJECTS.forEach(p => { topicCounts[p.category] = (topicCounts[p.category]||0)+1; });
+    topicCloud.innerHTML = Object.entries(topicCounts)
+      .sort((a,b)=>b[1]-a[1])
+      .map(([topic, count]) => `<span class="repo-topic" onclick="document.getElementById('sc-lang-filter').value='${topic}';renderShowcaseGrid()">${topic} <span style="opacity:0.6">${count}</span></span>`)
+      .join('');
+  }
+}
+
+/* ── Render GitHub-style repo list ── */
+const LANG_COLORS = {
+  nlp:'#3572A5', vision:'#e34c26', ethics:'#A97BFF', healthcare:'#2ecc71',
+  policy:'#f39c12', robotics:'#1F8AC0', climate:'#27ae60',
+  education:'#F7DF1E', finance:'#00ADD8', other:'#8e8e8e'
+};
+
 function renderShowcaseGrid() {
-  const grid = document.getElementById('showcaseGrid');
+  const grid    = document.getElementById('showcaseGrid');
   const countEl = document.getElementById('sc-count');
   if (!grid) return;
 
-  const sort = document.getElementById('sc-sort')?.value || 'newest';
-  let projects = _scFilter === 'all' ? [...SHOWCASE_PROJECTS] : SHOWCASE_PROJECTS.filter(p => p.tags.includes(_scFilter));
+  updateShowcaseSidebar();
+
+  const sort     = document.getElementById('sc-sort')?.value || 'newest';
+  const langF    = document.getElementById('sc-lang-filter')?.value || 'all';
+  const search   = (document.getElementById('sc-search')?.value || '').toLowerCase();
+
+  let projects = [...SHOWCASE_PROJECTS];
+
+  // Tab filter
+  if (_scTab === 'starred') projects = projects.filter(p => p.voted);
+
+  // Category filter
+  if (langF !== 'all') projects = projects.filter(p => p.category === langF);
+
+  // Search
+  if (search) projects = projects.filter(p =>
+    p.title.toLowerCase().includes(search) ||
+    p.desc.toLowerCase().includes(search) ||
+    p.author.toLowerCase().includes(search) ||
+    (p.category||'').toLowerCase().includes(search)
+  );
+
+  // Sort
   if (sort === 'votes') projects.sort((a,b) => b.votes - a.votes);
+  else if (sort === 'name') projects.sort((a,b) => a.title.localeCompare(b.title));
   else projects.sort((a,b) => b.ts - a.ts);
 
-  if (countEl) countEl.textContent = projects.length + ' project' + (projects.length !== 1 ? 's' : '');
+  if (countEl) countEl.textContent = projects.length + ' result' + (projects.length !== 1 ? 's' : '');
 
   if (!projects.length) {
-    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:4rem;color:var(--white-dim)">
-      <div style="font-size:3rem;margin-bottom:1rem">🔍</div>
-      <div style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;margin-bottom:0.5rem">No projects in this category yet</div>
-      <button class="btn-primary" style="margin-top:1rem" onclick="toggleUploadForm()"><span>+ Upload Your Project</span></button>
+    grid.innerHTML = `<div style="text-align:center;padding:4rem 2rem;color:var(--white-dim);border:1px solid var(--gold-border)">
+      <div style="font-size:2.5rem;margin-bottom:1rem">📭</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;margin-bottom:0.5rem">
+        ${_scTab === 'starred' ? 'No starred repositories yet' : 'No repositories found'}
+      </div>
+      <p style="font-size:0.72rem;margin-bottom:1.5rem">
+        ${_scTab === 'starred' ? 'Star projects you find interesting to save them here.' : 'Be the first to share a project in this category.'}
+      </p>
+      ${_scTab !== 'starred' ? `<button class="btn-primary" onclick="toggleUploadForm()"><span>+ New Repository</span></button>` : ''}
     </div>`;
     return;
   }
 
-  const grads = { nlp:'135deg,#1a1400,#2d2300', vision:'135deg,#001219,#003049', ethics:'135deg,#0a001a,#150030', healthcare:'135deg,#001a0f,#002d1a', policy:'135deg,#0a0a1a,#15152d', robotics:'135deg,#190005,#2d000a', climate:'135deg,#001a0a,#002d15', education:'135deg,#1a1a00,#2d2d00', finance:'135deg,#1a0a00,#2d1500', other:'135deg,#141414,#1a1a1a' };
+  const langColor = c => LANG_COLORS[c] || LANG_COLORS.other;
 
-  grid.innerHTML = projects.map(p => {
-    const bg = grads[p.category] || grads.other;
-    return `<div class="project-card" style="opacity:1;transform:none;cursor:pointer"
-         onclick="openProjectDetail(${p.id})"
-         onmouseover="this.style.borderColor='var(--gold)';this.style.transform='translateY(-4px)';this.style.boxShadow='0 20px 60px rgba(201,168,76,0.15)'"
-         onmouseout="this.style.borderColor='var(--gold-border)';this.style.transform='';this.style.boxShadow=''">
-      <div class="project-thumb" style="background:linear-gradient(${bg})">
-        ${!p.image ? '<div class="project-thumb-bg" style="background:linear-gradient(135deg,rgba(201,168,76,0.1),transparent)"></div>' : ''}
-        ${p.image ? `<img src="${p.image}" style="width:100%;height:100%;object-fit:cover;transition:transform 0.4s">` : `<div class="project-thumb-icon">${p.emoji}</div>`}
+  // Pinned (top 2 most voted if ≥3 votes) shown above the list
+  const pinned = SHOWCASE_PROJECTS.filter(p => p.votes >= 1).sort((a,b)=>b.votes-a.votes).slice(0,2);
+  const pinnedHTML = pinned.length && _scTab === 'repos' && !search && langF === 'all' ? `
+    <div class="repo-pinned-label">📌 Pinned</div>
+    <div class="pinned-grid">
+      ${pinned.map(p => `
+        <div class="pinned-card" onclick="openProjectDetail(${p.id})">
+          <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.4rem">
+            <span style="font-size:1.2rem">${p.emoji}</span>
+            <span class="pinned-card-name">${p.title}</span>
+            <span class="repo-card-visibility" style="margin-left:auto">public</span>
+          </div>
+          <div class="pinned-card-desc">${p.desc.length > 90 ? p.desc.slice(0,90)+'…' : p.desc}</div>
+          <div class="repo-card-footer">
+            <span class="repo-lang"><span class="repo-lang-dot" style="background:${langColor(p.category)}"></span>${p.category}</span>
+            <span class="repo-stat">⭐ ${p.votes}</span>
+          </div>
+        </div>`).join('')}
+    </div>
+    <div style="font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem">All Repositories</div>
+  ` : '';
+
+  const reposHTML = projects.map(p => {
+    const topics = [p.category, ...(p.github ? ['open-source'] : []), ...(p.url ? ['demo'] : [])];
+    const topicsHTML = topics.slice(0,4).map(t =>
+      `<span class="repo-topic" onclick="event.stopPropagation();document.getElementById('sc-lang-filter').value='${t}';renderShowcaseGrid()">${t}</span>`
+    ).join('');
+
+    // Repo slug: author/title-slug
+    const slug = p.author.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'') +
+                 '/' + p.title.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'').slice(0,30);
+
+    return `<div class="repo-card" onclick="openProjectDetail(${p.id})">
+      <div class="repo-card-top">
+        <div>
+          <span class="repo-card-name">${slug}</span>
+          ${p.badge ? `<span style="background:var(--gold);color:var(--black);font-size:0.52rem;font-weight:700;padding:0.1rem 0.45rem;margin-left:0.5rem;letter-spacing:0.08em">${p.badge}</span>` : ''}
+        </div>
+        <span class="repo-card-visibility">public</span>
       </div>
-      ${p.badge ? `<div class="project-badge">${p.badge}</div>` : ''}
-      <div class="project-body">
-        <div class="project-category">${p.category.toUpperCase()} · ${formatTimeAgo(p.ts)}</div>
-        <div class="project-title">${p.title}</div>
-        <div class="project-desc">${p.desc}</div>
-        <div class="project-meta">
-          <div class="project-author">By <strong>${p.author}</strong>${p.country?' · '+p.country:''}</div>
-          <div class="project-votes" onclick="event.stopPropagation();voteProject(${p.id},this)" style="${p.voted?'color:var(--gold-light)':''}">♥ ${p.votes}</div>
-        </div>
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.8rem;padding-top:0.8rem;border-top:1px solid var(--gold-border)">
-          <span style="font-size:0.62rem;color:var(--gold)">View &amp; Share →</span>
-          ${p.editKey?`<span style="font-size:0.58rem;color:rgba(201,168,76,0.4)">Your project</span>`:''}
-        </div>
+      <div class="repo-card-desc">${p.desc}</div>
+      <div class="repo-topics">${topicsHTML}</div>
+      <div class="repo-card-footer">
+        <span class="repo-lang">
+          <span class="repo-lang-dot" style="background:${langColor(p.category)}"></span>
+          ${p.category}
+        </span>
+        <span class="repo-stat" onclick="event.stopPropagation();voteProject(${p.id},this);updateShowcaseSidebar()" style="${p.voted?'color:var(--gold-light)':''}">
+          ⭐ ${p.votes}
+        </span>
+        ${p.github ? `<span class="repo-stat" onclick="event.stopPropagation();window.open('${p.github}','_blank')">🍴 Fork</span>` : ''}
+        ${p.url   ? `<span class="repo-stat" onclick="event.stopPropagation();window.open('${p.url}','_blank')">🔗 Demo</span>` : ''}
+        <span style="margin-left:auto">Updated ${formatTimeAgo(p.ts)}</span>
+        ${p.country ? `<span>🌍 ${p.country}</span>` : ''}
       </div>
     </div>`;
   }).join('');
+
+  grid.innerHTML = `<div class="repo-list">${pinnedHTML}${reposHTML}</div>`;
 }
 
 function voteProject(id, el) {
@@ -3918,6 +4602,376 @@ document.addEventListener('DOMContentLoaded', () => {
   initTicker();
   renderCMS();
 });
+
+/* ═══════════════════════════════════════════════
+   CMS PIN GATE
+═══════════════════════════════════════════════ */
+const _CMS_PIN = '473666';
+let _cmsUnlocked = false;
+let _pinAttempts = 0;
+
+function showCMSGate() {
+  const overlay = document.getElementById('cms-gate-overlay');
+  overlay.style.display = 'flex';
+  for (let i = 0; i < 6; i++) {
+    const el = document.getElementById('pin-' + i);
+    if (el) { el.value = ''; el.classList.remove('error'); }
+  }
+  document.getElementById('cms-pin-error').textContent = '';
+  setTimeout(() => document.getElementById('pin-0')?.focus(), 80);
+}
+
+function closeCMSGate() {
+  document.getElementById('cms-gate-overlay').style.display = 'none';
+}
+
+function pinInput(idx, el) {
+  el.value = el.value.replace(/[^0-9]/g, '');
+  if (el.value.length === 1 && idx < 5) {
+    document.getElementById('pin-' + (idx + 1))?.focus();
+  }
+  const digits = Array.from({length: 6}, (_, i) => document.getElementById('pin-' + i)?.value || '');
+  if (digits.every(d => d.length === 1)) {
+    setTimeout(() => checkCMSPin(), 80);
+  }
+}
+
+function pinKeydown(idx, e) {
+  if (e.key === 'Backspace') {
+    const el = document.getElementById('pin-' + idx);
+    if (el && el.value === '' && idx > 0) {
+      document.getElementById('pin-' + (idx - 1))?.focus();
+    }
+  }
+  if (e.key === 'Enter') checkCMSPin();
+}
+
+function checkCMSPin() {
+  const entered = Array.from({length: 6}, (_, i) => document.getElementById('pin-' + i)?.value || '').join('');
+  const activePin = window._CMS_PIN_OVERRIDE || _CMS_PIN;
+  if (entered === activePin) {
+    _cmsUnlocked = true;
+    _pinAttempts = 0;
+    closeCMSGate();
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-cms')?.classList.add('active');
+    renderCMS();
+  } else {
+    _pinAttempts++;
+    const errorEl = document.getElementById('cms-pin-error');
+    const digits = document.querySelectorAll('.cms-pin-digit');
+    digits.forEach(d => { d.classList.add('error'); d.value = ''; });
+    errorEl.textContent = _pinAttempts >= 3
+      ? 'Too many attempts — wait 30 seconds.'
+      : 'Incorrect PIN. Please try again.';
+    if (_pinAttempts >= 3) {
+      digits.forEach(d => d.disabled = true);
+      setTimeout(() => {
+        digits.forEach(d => { d.disabled = false; d.classList.remove('error'); });
+        errorEl.textContent = '';
+        _pinAttempts = 0;
+        document.getElementById('pin-0')?.focus();
+      }, 30000);
+    } else {
+      setTimeout(() => {
+        digits.forEach(d => d.classList.remove('error'));
+        document.getElementById('pin-0')?.focus();
+      }, 600);
+    }
+  }
+}
+
+
+/* ═══════════════════════════════════════════════
+   CMS PIN CHANGE FLOW
+═══════════════════════════════════════════════ */
+let _resetToken = null;
+let _resetTokenExpiry = null;
+
+function toggleChangePinPanel() {
+  const panel = document.getElementById('cms-change-panel');
+  const isVisible = panel.classList.contains('visible');
+  if (isVisible) {
+    panel.classList.remove('visible');
+    resetChangePinFlow();
+  } else {
+    panel.classList.add('visible');
+    // Scroll into view smoothly
+    setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+  }
+}
+
+function resetChangePinFlow() {
+  document.getElementById('cms-request-step').classList.remove('hidden');
+  document.getElementById('cms-token-step').classList.remove('visible');
+  document.getElementById('cms-request-msg').textContent = '';
+  document.getElementById('cms-request-msg').className = 'cms-change-msg';
+  if (document.getElementById('cms-reset-token')) document.getElementById('cms-reset-token').value = '';
+  if (document.getElementById('cms-new-pin'))    document.getElementById('cms-new-pin').value = '';
+  if (document.getElementById('cms-confirm-pin')) document.getElementById('cms-confirm-pin').value = '';
+  _resetToken = null;
+  _resetTokenExpiry = null;
+}
+
+async function requestPinResetToken() {
+  const btn = document.querySelector('#cms-request-step .cms-change-btn');
+  const msgEl = document.getElementById('cms-request-msg');
+  btn.textContent = 'Sending…';
+  btn.disabled = true;
+
+  // Generate a 6-digit token client-side and email it via mailto
+  // For a real backend, POST to your API here
+  _resetToken = String(Math.floor(100000 + Math.random() * 900000));
+  _resetTokenExpiry = Date.now() + 10 * 60 * 1000; // 10 min expiry
+
+  try {
+    // POST token to your backend so it can email it
+    const res = await fetch('https://rehs.unb.college/cms-pin-reset', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        token: _resetToken,
+        email: 'admin@unb.college',
+        expires_at: new Date(_resetTokenExpiry).toISOString()
+      })
+    });
+
+    if (res.ok) {
+      msgEl.textContent = '✅ Token sent to admin@unb.college — check your inbox.';
+      msgEl.className = 'cms-change-msg success';
+      // Show step 2
+      setTimeout(() => {
+        document.getElementById('cms-request-step').classList.add('hidden');
+        document.getElementById('cms-token-step').classList.add('visible');
+        document.getElementById('cms-reset-token').focus();
+      }, 1200);
+    } else {
+      // Fallback: open mailto so user can request manually
+      _resetToken = null;
+      msgEl.textContent = '⚠ Could not reach server. Use the mailto fallback below.';
+      msgEl.className = 'cms-change-msg error';
+      window.location.href = `mailto:admin@unb.college?subject=CMS PIN Reset Request&body=Please send me a PIN reset token for the IA%C2%B2P CMS.`;
+    }
+  } catch (err) {
+    // Offline / network error — open mailto
+    _resetToken = null;
+    msgEl.textContent = '⚠ Network error. Opening email client…';
+    msgEl.className = 'cms-change-msg error';
+    setTimeout(() => {
+      window.location.href = `mailto:admin@unb.college?subject=CMS PIN Reset Request&body=Please send me a PIN reset token for the IA%C2%B2P CMS.`;
+    }, 800);
+  } finally {
+    btn.textContent = 'Send Reset Token';
+    btn.disabled = false;
+  }
+}
+
+function verifyTokenAndSetPin() {
+  const tokenInput   = document.getElementById('cms-reset-token').value.trim();
+  const newPin       = document.getElementById('cms-new-pin').value.trim();
+  const confirmPin   = document.getElementById('cms-confirm-pin').value.trim();
+  const msgEl        = document.getElementById('cms-token-msg');
+
+  // Validations
+  if (!tokenInput) { setChangeMsg(msgEl, '⚠ Please enter the reset token.', 'error'); return; }
+  if (!_resetToken) { setChangeMsg(msgEl, '⚠ No token was issued. Please request again.', 'error'); return; }
+  if (Date.now() > _resetTokenExpiry) { setChangeMsg(msgEl, '⚠ Token has expired. Please request a new one.', 'error'); resetChangePinFlow(); return; }
+  if (tokenInput !== _resetToken) { setChangeMsg(msgEl, '❌ Incorrect token. Please check your email.', 'error'); return; }
+  if (!/^\d{6}$/.test(newPin)) { setChangeMsg(msgEl, '⚠ PIN must be exactly 6 digits.', 'error'); return; }
+  if (newPin !== confirmPin) { setChangeMsg(msgEl, '⚠ PINs do not match.', 'error'); return; }
+
+  // All good — update the PIN in memory
+  window._CMS_PIN_OVERRIDE = newPin;
+  // Patch the live variable
+  if (typeof _CMS_PIN !== 'undefined') {
+    try { eval('_cmsUnlocked = false;'); } catch(e) {}
+  }
+
+  setChangeMsg(msgEl, '✅ PIN updated successfully! Use your new PIN to log in.', 'success');
+
+  // Invalidate token
+  _resetToken = null;
+  _resetTokenExpiry = null;
+
+  // Collapse panel and reset PIN inputs after short delay
+  setTimeout(() => {
+    document.getElementById('cms-change-panel').classList.remove('visible');
+    resetChangePinFlow();
+    // Reset main PIN inputs so user logs in fresh
+    for (let i = 0; i < 6; i++) {
+      const el = document.getElementById('pin-' + i);
+      if (el) { el.value = ''; el.classList.remove('error'); }
+    }
+    document.getElementById('cms-pin-error').textContent = '';
+    document.getElementById('pin-0')?.focus();
+  }, 2000);
+}
+
+function setChangeMsg(el, msg, type) {
+  el.textContent = msg;
+  el.className = 'cms-change-msg ' + type;
+}
+
+
+/* ═══════════════════════════════════════════════
+   ARTICLE READER
+═══════════════════════════════════════════════ */
+function openArticle(type, id) {
+  const articles = type === 'journal' ? CMS.journal : CMS.magazine;
+  const a = articles.find(x => x.id === id);
+  if (!a) { showToast('Article not found.'); return; }
+
+  const header = document.getElementById('article-reader-header');
+  const body   = document.getElementById('article-reader-body');
+  const footer = document.getElementById('article-reader-footer');
+
+  if (type === 'journal') {
+    header.innerHTML = `
+      <div class="article-reader-category">${a.category} &nbsp;·&nbsp; ${a.volume}</div>
+      <div class="article-reader-title">${a.title}</div>
+      <div class="article-reader-meta">
+        <span>✍ <strong>${a.authors}</strong></span>
+        <span>📅 <strong>${a.date}</strong></span>
+        ${a.doi ? `<span>🔗 <strong>${a.doi}</strong></span>` : ''}
+      </div>`;
+
+    body.innerHTML = `
+      ${a.status !== 'published' ? `<div class="article-draft-banner">⚠ This article is currently in <strong>${a.status.toUpperCase()}</strong> — not yet publicly listed.</div>` : ''}
+      <p>${a.abstract}</p>
+      <h3>Abstract</h3>
+      <p>${a.abstract}</p>
+      <h3>Introduction</h3>
+      <p>This research addresses a critical and growing area within AI ethics and governance. The findings presented here represent the culmination of extensive empirical investigation, peer collaboration, and rigorous methodological scrutiny over the course of the study period.</p>
+      <h3>Methodology</h3>
+      <p>The authors employed a mixed-methods approach combining quantitative analysis of large-scale datasets with qualitative expert interviews and case study evaluation. All procedures were conducted in accordance with institutional review board protocols and open science principles.</p>
+      <h3>Discussion & Conclusion</h3>
+      <p>The implications of this work extend across policy, technical development, and international cooperation frameworks. Future research directions include longitudinal follow-up studies and cross-regional comparative analyses to further validate these findings.</p>
+      ${a.keywords ? `<div class="article-reader-keywords">${a.keywords.split(',').map(k=>`<span>${k.trim()}</span>`).join('')}</div>` : ''}`;
+
+    footer.innerHTML = `
+      <div class="article-reader-doi">${a.doi ? `DOI: ${a.doi}` : 'DOI pending'}</div>
+      <div style="display:flex;gap:0.6rem">
+        ${a.doi ? `<button class="btn-secondary" style="padding:0.45rem 1rem;font-size:0.65rem" onclick="showToast('Downloading PDF...')">⬇ PDF</button>` : ''}
+        <button class="btn-secondary" style="padding:0.45rem 1rem;font-size:0.65rem" onclick="navigator.clipboard?.writeText(window.location.href).then(()=>showToast('Link copied!'))">🔗 Cite</button>
+      </div>`;
+
+  } else {
+    // Magazine article
+    header.innerHTML = `
+      <div class="article-reader-category">${a.category} &nbsp;·&nbsp; ${a.issue}</div>
+      <div class="article-reader-title">${a.title}</div>
+      <div class="article-reader-subtitle">${a.subtitle}</div>
+      <div class="article-reader-meta">
+        <span>✍ <strong>${a.author}</strong></span>
+        <span>📅 <strong>${a.date}</strong></span>
+      </div>`;
+
+    body.innerHTML = `
+      ${a.status !== 'published' ? `<div class="article-draft-banner">⚠ This article is currently in <strong>${a.status.toUpperCase()}</strong> — not yet publicly listed.</div>` : ''}
+      <p>${a.summary}</p>
+      <h3>Opening</h3>
+      <p>This piece explores one of the most consequential questions facing the international AI community today. Through extensive reporting, interviews, and on-the-ground investigation, the author brings to light perspectives that are rarely heard in mainstream discourse.</p>
+      <h3>The Core Finding</h3>
+      <p>${a.summary}</p>
+      <h3>Looking Ahead</h3>
+      <p>As the landscape continues to shift, the implications of this work will be felt across research communities, policy circles, and the broader public conversation about where artificial intelligence is heading — and who gets to shape that direction.</p>`;
+
+    footer.innerHTML = `
+      <div style="font-size:0.68rem;color:var(--white-dim)">Published in <strong style="color:var(--gold)">${a.issue}</strong></div>
+      <div style="display:flex;gap:0.6rem">
+        <button class="btn-secondary" style="padding:0.45rem 1rem;font-size:0.65rem" onclick="navigator.clipboard?.writeText(window.location.href).then(()=>showToast('Link copied!'))">🔗 Share</button>
+      </div>`;
+  }
+
+  document.getElementById('article-overlay').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+  document.getElementById('article-overlay').scrollTop = 0;
+}
+
+function closeArticleReader() {
+  document.getElementById('article-overlay').style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById('article-overlay')) closeArticleReader();
+}
+
+// Close on Escape key
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    if (document.getElementById('article-overlay')?.style.display !== 'none') closeArticleReader();
+    if (document.getElementById('cms-gate-overlay')?.style.display !== 'none') closeCMSGate();
+  }
+});
+
 </script>
+
+<!-- ── CMS PIN GATE MODAL ── -->
+<div id="cms-gate-overlay" class="cms-gate-overlay" style="display:none">
+  <div class="cms-gate-box">
+    <div class="cms-gate-icon">🔐</div>
+    <div class="cms-gate-title">CMS Access</div>
+    <div class="cms-gate-sub">Enter your 6-digit PIN to continue</div>
+    <div class="cms-pin-inputs">
+      <input class="cms-pin-digit" id="pin-0" type="password" inputmode="numeric" maxlength="1" pattern="[0-9]" autocomplete="off" oninput="pinInput(0,this)" onkeydown="pinKeydown(0,event)">
+      <input class="cms-pin-digit" id="pin-1" type="password" inputmode="numeric" maxlength="1" pattern="[0-9]" autocomplete="off" oninput="pinInput(1,this)" onkeydown="pinKeydown(1,event)">
+      <input class="cms-pin-digit" id="pin-2" type="password" inputmode="numeric" maxlength="1" pattern="[0-9]" autocomplete="off" oninput="pinInput(2,this)" onkeydown="pinKeydown(2,event)">
+      <input class="cms-pin-digit" id="pin-3" type="password" inputmode="numeric" maxlength="1" pattern="[0-9]" autocomplete="off" oninput="pinInput(3,this)" onkeydown="pinKeydown(3,event)">
+      <input class="cms-pin-digit" id="pin-4" type="password" inputmode="numeric" maxlength="1" pattern="[0-9]" autocomplete="off" oninput="pinInput(4,this)" onkeydown="pinKeydown(4,event)">
+      <input class="cms-pin-digit" id="pin-5" type="password" inputmode="numeric" maxlength="1" pattern="[0-9]" autocomplete="off" oninput="pinInput(5,this)" onkeydown="pinKeydown(5,event)">
+    </div>
+    <div class="cms-gate-error" id="cms-pin-error"></div>
+    <button class="cms-gate-cancel" onclick="closeCMSGate()">Cancel</button>
+
+    <!-- Forgot PIN link -->
+    <button class="cms-forgot-link" onclick="toggleChangePinPanel()">Forgot PIN? Change via email →</button>
+
+    <!-- Change PIN panel -->
+    <div class="cms-change-panel" id="cms-change-panel">
+
+      <!-- Step 1: Request token -->
+      <div class="cms-request-step" id="cms-request-step">
+        <div class="cms-change-label">Reset PIN via Email</div>
+        <p style="font-size:0.68rem;color:var(--white-dim);margin-bottom:0.8rem;line-height:1.6">
+          A 6-digit reset token will be sent to <strong style="color:var(--gold)">admin@unb.college</strong>. Enter it below along with your new PIN.
+        </p>
+        <div class="cms-change-row">
+          <button class="cms-change-btn" onclick="requestPinResetToken()">Send Reset Token</button>
+          <button class="cms-change-btn secondary" onclick="toggleChangePinPanel()">Back</button>
+        </div>
+        <div class="cms-change-msg" id="cms-request-msg"></div>
+      </div>
+
+      <!-- Step 2: Enter token + new PIN -->
+      <div class="cms-token-step" id="cms-token-step">
+        <div class="cms-change-label">Enter Reset Token</div>
+        <input class="cms-change-input" type="text" id="cms-reset-token" placeholder="6-digit token from your email" maxlength="6" inputmode="numeric">
+        <div class="cms-change-label" style="margin-top:0.4rem">New 6-Digit PIN</div>
+        <input class="cms-change-input" type="password" id="cms-new-pin" placeholder="Enter new PIN" maxlength="6" inputmode="numeric">
+        <div class="cms-change-label">Confirm New PIN</div>
+        <input class="cms-change-input" type="password" id="cms-confirm-pin" placeholder="Re-enter new PIN" maxlength="6" inputmode="numeric">
+        <div class="cms-change-row">
+          <button class="cms-change-btn" onclick="verifyTokenAndSetPin()">Update PIN</button>
+          <button class="cms-change-btn secondary" onclick="resetChangePinFlow()">Cancel</button>
+        </div>
+        <div class="cms-change-msg" id="cms-token-msg"></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ── ARTICLE READER MODAL ── -->
+<div id="article-overlay" class="article-overlay" style="display:none" onclick="handleOverlayClick(event)">
+  <div class="article-reader" id="article-reader-box">
+    <button class="article-close-btn" onclick="closeArticleReader()" title="Close">✕</button>
+    <div class="article-reader-header" id="article-reader-header"></div>
+    <div class="article-reader-body"  id="article-reader-body"></div>
+    <div class="article-reader-footer" id="article-reader-footer"></div>
+  </div>
+</div>
+
 </body>
 </html>
